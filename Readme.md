@@ -1,5 +1,5 @@
 # ncloud-sdk-go
-For using Ncloud openAPI in Go
+For using NAVER CLOUD PLATFORM openAPI in Go
 
 ## Getting started
 
@@ -41,6 +41,7 @@ import (
 )
 
 // Key file path
+// ~/key/setkey.json 의 양식을 참고해 json key file 을 생성
 var configPath ="./key/key.json"
 
 func main() {

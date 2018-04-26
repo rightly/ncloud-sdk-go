@@ -1,6 +1,6 @@
 ## Ncloud Media Product Document
 
-### Product List And API List
+### Product And API List
 
 - VOD Transcoder
     - Job Operation
@@ -15,7 +15,7 @@
 
 - Live Transcoder
 
-### Using example
+### VOD Transcoder Job create example
 ```go
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"

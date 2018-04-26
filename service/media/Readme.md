@@ -1,22 +1,6 @@
-# ncloud-sdk-go
-For using Ncloud openAPI in Go
+## Ncloud Media Product Document
 
-## Getting started
-
-go get 을 사용해 추가합니다
-```sh
-go get github.com/rightly/ncloud-sdk-go
-```
-
-## Compute
-
-## Network
-
-## AI & Application
-
-- Geolocation
-
-## Media
+### Product List And API List
 
 - VOD Transcoder
     - Job Operation

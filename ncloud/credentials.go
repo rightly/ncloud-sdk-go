@@ -1,0 +1,53 @@
+package ncloud
+
+import (
+	"strconv"
+	"time"
+	"fmt"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/base64"
+)
+
+type Credentials struct {
+	Method       string
+	Timestamp    string
+	ApiKey       string
+	AccessKey    string
+	SecretKey    string
+	Signature    string
+}
+
+// 초기 api, access, secret key 값을 받아 Credential Struct에 채워준다.
+func SetCredential(apiKey, accessKey, secretKey string) *Credentials  {
+
+	return &Credentials{
+		ApiKey:apiKey,
+		AccessKey:accessKey,
+		SecretKey:secretKey,
+	}
+}
+func (c *Credentials )BuildAuthParams(method, apiUrl string) {
+
+	c.Method = method
+	// millisecond timestamp
+	c.Timestamp = strconv.FormatInt(int64(time.Now().UnixNano()) / int64(time.Millisecond), 10)
+	c.Signature = c.makeSignature(apiUrl)
+}
+
+func ( c *Credentials ) makeSignature(apiUrl string) string {
+	var message string
+
+	message = fmt.Sprint(message, c.Method + " ") // Request Method
+	message = fmt.Sprint(message, apiUrl + "\n" ) // Uri
+	message = fmt.Sprint(message, c.Timestamp + "\n") // Time Stamp
+	message = fmt.Sprint(message, c.ApiKey + "\n") // Api Key
+	message = fmt.Sprint(message, c.AccessKey)
+
+	key := []byte(c.SecretKey)	// Secret Key
+
+	h := hmac.New(sha256.New, key)
+	h.Write([]byte(message))
+
+	return base64.StdEncoding.EncodeToString(h.Sum(nil))
+}

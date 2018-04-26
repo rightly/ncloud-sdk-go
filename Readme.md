@@ -49,48 +49,48 @@ func main() {
 
 	// Set Credentials, 발급받은 key 값 설정
 	cred := ncloud.SetCredential(keyConf.Key.ApiKey,keyConf.Key.AccessKey,keyConf.Key.SecretKey)
-	
-    // Configuration 생성 
+
+	// Configuration 생성 
 	cfg := ncloud.LoadDefaultConfig(cred)
 
 	// Create Product Object, Custom http.Client 사용시 파라미터 전달
 	svc := VODTranscoder.New(cfg)
 
 	// Job 생성 요청을 위한 파라미터 객체 생성
-    inputs := []VODTranscoder.CreateJobInput{
+	inputs := []VODTranscoder.CreateJobInput{
 		{
 			InputContainerName: "vt-storage",
 			InputFilePath:      "/test.mp4",
 		},
 	}
 
-    outputFiles := []VODTranscoder.OutputFile{
-        {
-            PresetId:       "9bc226df-04c9-11e8-8379-00505685080f",
-            OutputFileName: "api-test",
-        },
-    }
-    output := VODTranscoder.CreateJobOutput{
-        OutputContainerName:    "vt-storage",
-        ThumbnailOn:            "true",
-        ThumbnailContainerName: "vt-thumb",
-        OutputFiles:            outputFiles,
-    }
+	outputFiles := []VODTranscoder.OutputFile{
+		{
+			PresetId:       "9bc226df-04c9-11e8-8379-00505685080f",
+			OutputFileName: "api-test",
+		},
+	}
+	output := VODTranscoder.CreateJobOutput{
+		OutputContainerName:    "vt-storage",
+		ThumbnailOn:            "true",
+		ThumbnailContainerName: "vt-thumb",
+		OutputFiles:            outputFiles,
+	}
 
-    createJobParam := &VODTranscoder.CreateJobParam{
-        JobName:jobNmae,
-        Inputs: inputs,
-        Output:output,
-    }
+	createJobParam := &VODTranscoder.CreateJobParam{
+		JobName:jobNmae,
+		Inputs: inputs,
+		Output:output,
+	}
 
-    // 위 생성한 객체를 파라미터로 CreateJobRequest 생성
-    req := svc.CreateJobRequest(createJobParam)
+	// 위 생성한 객체를 파라미터로 CreateJobRequest 생성
+	req := svc.CreateJobRequest(createJobParam)
 
-    // 요청 및 응답
-    resp, err := req.Send()
+	// 요청 및 응답
+	resp, err := req.Send()
 
-    if err == nil {
-        fmt.Println(resp.String())
-    }
+	if err == nil {
+		fmt.Println(resp.String())
+	}
 }
 ```

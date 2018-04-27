@@ -8,7 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"net/http"
-	"../oauth"
+	"github.com/rightly/ncloud-sdk-go/oauth"
 )
 
 type Credentials struct {

@@ -1,7 +1,7 @@
 package VODTranscoder
 
 import (
-	"../../../ncloud"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
 )
 
 // Actions

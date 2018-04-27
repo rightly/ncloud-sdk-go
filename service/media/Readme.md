@@ -40,8 +40,9 @@ func main() {
 
 	// Create Product Object, Custom http.Client 사용시 파라미터 전달
 	svc := VODTranscoder.New(cfg)
-
+    
 	// Job 생성 요청을 위한 파라미터 객체 생성
+	jobName := "api-test"
 	inputs := []VODTranscoder.CreateJobInput{
 		{
 			InputContainerName: "vt-storage",
@@ -63,7 +64,7 @@ func main() {
 	}
 
 	createJobParam := &VODTranscoder.CreateJobParam{
-		JobName:jobNmae,
+		JobName:jobName,
 		Inputs: inputs,
 		Output:output,
 	}

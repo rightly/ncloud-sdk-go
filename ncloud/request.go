@@ -24,11 +24,12 @@ type Request struct {
 }
 
 type Operation struct {
-	Name   string
-	Method string
-	Path   string
-	Url    string
-	Param  interface{}
+	Name       string
+	Credential string
+	Method     string
+	Path       string
+	Url        string
+	Param      interface{}
 }
 
 func New(operation *Operation, credentials *Credentials, response interface{}, client *HttpHandler) *Request {
@@ -74,6 +75,7 @@ func (r *Request)Send() (err error) {
 	}
 
 	r.Body, err = ioutil.ReadAll(r.HTTPResponse.Body)
+
 	if err != nil {
 		return
 	}
@@ -82,6 +84,7 @@ func (r *Request)Send() (err error) {
 
 	if size > 0 {
 		err = json.Unmarshal(r.Body, r.Data)
+
 		if err != nil {
 			return
 		}

@@ -4,8 +4,6 @@ import (
 	"net/http"
 )
 
-//TODO: Retryer, Logger, Context
-
 type HttpHandler struct {
 	HttpClient *http.Client
 	*Retryer

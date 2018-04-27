@@ -1,7 +1,7 @@
 package VODTranscoder
 
 import (
-	"github.com/rightly/ncloud-sdk-go/ncloud"
+	"../../../ncloud"
 )
 
 // Actions
@@ -81,10 +81,11 @@ func (r *CreateJobRequest)Send() (*CreateJobResponse, error) {
 //
 func (c *VodTranscoder)CreateJobRequest(p *CreateJobParam) CreateJobRequest {
 
-	const opName = "CreateJob"
+	const opName = "CreateJobRequest"
 
 	op := &ncloud.Operation{
 		Name:opName,
+		Credential: "apigw",
 		Method:"POST",
 		Path:jobAction,
 		Url:END_POINT + jobAction,
@@ -109,9 +110,9 @@ func (r JobCreateCancelRequest)Send() (*JobCreateCancelResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	r.Data.(*JobCreateCancelResponse).ResponseStatus = r.HTTPResponse.Status
-
+	if r.Data.(*JobCreateCancelResponse).ResponseStatus == "" {
+		r.Data.(*JobCreateCancelResponse).ResponseStatus = r.HTTPResponse.Status
+	}
 	return r.Data.(*JobCreateCancelResponse), nil
 }
 
@@ -131,11 +132,12 @@ func (r JobCreateCancelRequest)Send() (*JobCreateCancelResponse, error) {
 //	}
 //
 func (c *VodTranscoder)JobCreateCancelRequest(jobId string) JobCreateCancelRequest {
-	const opName = "JobCreateCancel"
+	const opName = "JobCreateCancelRequest"
 	jobCancelAction := jobAction + "/" + jobId + "/cancel"
 
 	op := &ncloud.Operation{
 		Name:opName,
+		Credential: "apigw",
 		Method:"POST",
 		Path:jobCancelAction,
 		Url:END_POINT + jobCancelAction,
@@ -180,10 +182,11 @@ func (r JobListRequest)Send() (*JobListResponse, error) {
 //
 func (c *VodTranscoder)JobListRequest() JobListRequest {
 
-	const opName = "JobListView"
+	const opName = "JobListRequest"
 
 	op := &ncloud.Operation{
 		Name:opName,
+		Credential: "apigw",
 		Method:"GET",
 		Path:jobAction,
 		Url:END_POINT + jobAction,
@@ -208,7 +211,9 @@ func (r *JobInfoRequest)Send() (*JobInfoResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	if r.Data.(*JobInfoResponse).ResponseStatus == "" {
+		r.Data.(*JobInfoResponse).ResponseStatus = r.HTTPResponse.Status
+	}
 	return r.Data.(*JobInfoResponse), nil
 }
 
@@ -229,11 +234,12 @@ func (r *JobInfoRequest)Send() (*JobInfoResponse, error) {
 //
 func (c *VodTranscoder)JobInfoRequest(jobId string) JobInfoRequest {
 
-	const opName = "JobInfoView"
+	const opName = "JobInfoRequest"
 	url := jobAction + "/" + jobId
 
 	op := &ncloud.Operation{
 		Name:   opName,
+		Credential: "apigw",
 		Method: "GET",
 		Path:   url,
 		Url:    END_POINT + url,
@@ -263,7 +269,9 @@ func (r *PresetListRequest)Send() (*PresetListResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	if r.Data.(*PresetListResponse).ResponseStatus == "" {
+		r.Data.(*PresetListResponse).ResponseStatus = r.HTTPResponse.Status
+	}
 	return r.Data.(*PresetListResponse), nil
 }
 
@@ -283,10 +291,11 @@ func (r *PresetListRequest)Send() (*PresetListResponse, error) {
 //	}
 //
 func (c *VodTranscoder)PresetListRequest() PresetListRequest {
-	const opName= "PresetListView"
+	const opName= "PresetListRequest"
 
 	op := &ncloud.Operation{
 		Name:   opName,
+		Credential: "apigw",
 		Method: "GET",
 		Path:   presetAction,
 		Url:    END_POINT + presetAction,
@@ -310,7 +319,9 @@ func (r *PresetInfoRequest)Send() (*PresetInfoResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	if r.Data.(*PresetInfoResponse).ResponseStatus == "" {
+		r.Data.(*PresetInfoResponse).ResponseStatus = r.HTTPResponse.Status
+	}
 	return r.Data.(*PresetInfoResponse), nil
 }
 
@@ -330,11 +341,12 @@ func (r *PresetInfoRequest)Send() (*PresetInfoResponse, error) {
 //	}
 //
 func (c *VodTranscoder)PresetInfoRequest(presetId string) PresetInfoRequest {
-	const opName= "PresetInfoView"
+	const opName= "PresetInfoRequest"
 	url := presetAction + "/" + presetId
 
 	op := &ncloud.Operation{
 		Name:   opName,
+		Credential: "apigw",
 		Method: "GET",
 		Path:   url,
 		Url:    END_POINT + url,

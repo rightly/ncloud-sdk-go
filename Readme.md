@@ -48,16 +48,16 @@ func main() {
 	// Key Load
 	keyConf := key.Load(configPath)
 
-	// Set Credentials, 발급받은 key 값 설정
+	// Credentials 인스턴스 생성
 	cred := ncloud.SetCredential(keyConf.Key.ApiKey,keyConf.Key.AccessKey,keyConf.Key.SecretKey)
-
-	// Configuration 생성 
+	
+	// Configuration 인스턴스 생성
 	cfg := ncloud.LoadDefaultConfig(cred)
-
-	// Create Product Object, Custom http.Client 사용시 파라미터 전달
+    
+	// Product 인스턴스 생성
 	svc := VODTranscoder.New(cfg)
-
-	// Job 생성 요청을 위한 파라미터 객체 생성
+    
+	// Job 생성 요청을 위한 파라미터 인스턴스 생성
 	inputs := []VODTranscoder.CreateJobInput{
 		{
 			InputContainerName: "vt-storage",
@@ -88,9 +88,7 @@ func main() {
 	req := svc.CreateJobRequest(createJobParam)
 
 	// 요청 및 응답
-	resp, err := req.Send()
-
-	if err == nil {
+	if resp, err := req.Send(); err == nil {
 		fmt.Println(resp.String())
 	}
 }

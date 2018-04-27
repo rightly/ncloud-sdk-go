@@ -7,15 +7,19 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
+	"net/http"
+	"../oauth"
 )
 
 type Credentials struct {
-	Method       string
-	Timestamp    string
-	ApiKey       string
-	AccessKey    string
-	SecretKey    string
-	Signature    string
+	Method    string
+	Timestamp string
+	ApiKey    string
+	AccessKey string
+	SecretKey string
+	Signature string
+	config    *oauth.Config
+	token     *oauth.Token
 }
 
 // 초기 api, access, secret key 값을 받아 Credential Struct에 채워준다.
@@ -27,7 +31,14 @@ func SetCredential(apiKey, accessKey, secretKey string) *Credentials  {
 		SecretKey:secretKey,
 	}
 }
-func (c *Credentials )BuildAuthParams(method, apiUrl string) {
+
+func (c *Credentials) BuildOauthClient(client *http.Client) {
+	c.config = oauth.NewConfig(c.AccessKey, c.SecretKey)
+	c.token = oauth.NewToken("", "")
+	client = c.config.Client(oauth.NoContext, c.token)
+}
+
+func (c *Credentials)BuildAuthParams(method, apiUrl string) {
 
 	c.Method = method
 	// millisecond timestamp
@@ -35,7 +46,7 @@ func (c *Credentials )BuildAuthParams(method, apiUrl string) {
 	c.Signature = c.makeSignature(apiUrl)
 }
 
-func ( c *Credentials ) makeSignature(apiUrl string) string {
+func (c *Credentials)makeSignature(apiUrl string) string {
 	var message string
 
 	message = fmt.Sprint(message, c.Method + " ") // Request Method

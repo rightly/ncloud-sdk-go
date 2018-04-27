@@ -1,7 +1,7 @@
 package VODTranscoder
 
 import (
-	"github.com/rightly/ncloud-sdk-go/ncloud"
+	"../../../ncloud"
 )
 
 // VODTranscoder is provides the API Operation methods for making requests to

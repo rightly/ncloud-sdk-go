@@ -1,7 +1,6 @@
 package VODTranscoder
 
 import (
-	"time"
 	"encoding/json"
 )
 
@@ -11,7 +10,7 @@ type Metadata struct {
 	FileName string  `json:"fileName"`
 	FileSize uint64  `json:"fileSize"`
 	Duration float32 `json:"duration"`
-	Profile  Profile `json:"profile"`
+	Profile          `json:"profile"`
 }
 
 // Profile is Video profile properties
@@ -19,11 +18,11 @@ type Profile struct {
 	VideoCodec        string `json:"videoCodec"`
 	VideoBitrate      string `json:"videoBitrate"`
 	Profile           string `json:"profile"`
-	Width             string `json:"width"`
-	Height            string `json:"height"`
+	Width             int    `json:"width"`
+	Height            int    `json:"height"`
 	Level             string `json:"level"`
 	Framerate         string `json:"framerate"`
-	KeyframeInterval  string `json:"keyframeInterval"`
+	KeyframeInterval  int    `json:"keyframeInterval"`
 	AudioCodec        string `json:"audioCodec"`
 	AudioBitrate      string `json:"audioBitrate"`
 	AudioSamplingRate string `json:"audioSamplingRate"`
@@ -38,20 +37,20 @@ type OutputFile struct {
 }
 
 type Jobs struct {
-	JobId         string    `json:"jobId"`
-	CreateTime    time.Time `json:"createTime"`
-	SubmittedTime time.Time `json:"submittedTime"`
-	StartedTime   time.Time `json:"startedTime"`
-	FinishedTime  time.Time `json:"finishedTime"`
-	Status        string    `json:"status"`
-	JobErrorCode  string    `json:"jobErrorCode"`
-	JobName       string    `json:"jobName"`
-	Inputs        []Input   `json:"inputs"`
-	Output        Output    `json:"output"`
+	JobId         string  `json:"jobId"`
+	CreateTime    int     `json:"createTime"`
+	SubmittedTime int     `json:"submittedTime"`
+	StartedTime   int     `json:"startedTime"`
+	FinishedTime  int     `json:"finishedTime"`
+	Status        string  `json:"status"`
+	JobErrorCode  string  `json:"jobErrorCode"`
+	JobName       string  `json:"jobName"`
+	Inputs        []Input `json:"inputs"`
+	Output        Output  `json:"output"`
 }
 
 type Input struct {
-	Metadata           string `json:"metadata"`
+	Metadata                  `json:"metadata"`
 	InputContainerName string `json:"inputContainerName"`
 	InputFilePath      string `json:"inputFilePath"`
 }
@@ -64,7 +63,7 @@ type Output struct {
 }
 
 type Error struct {
-	ErrorCode string `json:"errorCode"`
+	ErrorCode int    `json:"errorCode"`
 	Message   string `json:"message"`
 }
 
@@ -142,6 +141,14 @@ func (r *JobInfoResponse) String() string {
 		return "Marshal Fail"
 	}
 	return string(b[:])
+}
+
+//
+//
+//
+//
+func (r *JobInfoResponse)PrettyPrint() string {
+	return ""
 }
 
 // Preset request operations

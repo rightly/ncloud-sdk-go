@@ -37,7 +37,7 @@ func LoadDefaultConfig(cred *Credentials) *Config {
 	}
 
 	defaultLogger := &Logger{
-		Logger: log.New(os.Stdout, "[Client]: ", log.LstdFlags),
+		Logger: log.New(os.Stdout, "" , log.LstdFlags),
 	}
 
 	return &Config{

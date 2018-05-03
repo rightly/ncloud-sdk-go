@@ -69,26 +69,26 @@ func (l *Logger) Printf(level LogLevel, format string, v ...interface{}) {
 	}
 }
 
-func (l *Logger) DEBUG(format string, v ...interface{})  {
+func (l *Logger) Debug(format string, v ...interface{})  {
 	l.Printf(DEBUG, format, v)
 }
 
-func (l *Logger) INFO(format string, v ...interface{})  {
+func (l *Logger) Info(format string, v ...interface{})  {
 	l.Printf(INFO, format, v)
 }
 
-func (l *Logger) WARN(format string, v ...interface{})  {
+func (l *Logger) Warn(format string, v ...interface{})  {
 	l.Printf(WARN, format, v)
 }
 
-func (l *Logger) ERROR(format string, v ...interface{}) {
+func (l *Logger) Error(format string, v ...interface{}) {
 	l.Printf(ERROR, format, v)
 }
 
 func WithLogger(l *Logger) Decorator {
 	return func(c HttpClient) HttpClient {
 		return HandlerFunc(func(r *http.Request) (*http.Response, error) {
-			l.INFO(" %s", r.Method, r.URL)
+			l.Info(" %s", r.Method, r.URL)
 			return c.Do(r)
 		})
 	}

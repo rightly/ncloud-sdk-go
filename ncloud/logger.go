@@ -12,7 +12,6 @@ import (
 
 type LogLevel int
 
-
 type Logger struct {
 	*log.Logger
 	logLevel LogLevel
@@ -41,10 +40,9 @@ func (l LogLevel) String() string {
 	return logLevels[l]
 }
 
-func (l *Logger)SetLogger(logger *log.Logger, level LogLevel) {
+func (l *Logger)SetLogLevel(level LogLevel) {
 	mu.Lock()
 	defer mu.Unlock()
-	l.Logger = logger
 	l.logLevel = level
 }
 
@@ -75,15 +73,15 @@ func (l *Logger) DEBUG(format string, v ...interface{})  {
 	l.Printf(DEBUG, format, v)
 }
 
-func (l *Logger)INFO(format string, v ...interface{})  {
+func (l *Logger) INFO(format string, v ...interface{})  {
 	l.Printf(INFO, format, v)
 }
 
-func (l *Logger)WARN(format string, v ...interface{})  {
+func (l *Logger) WARN(format string, v ...interface{})  {
 	l.Printf(WARN, format, v)
 }
 
-func (l *Logger)ERROR(format string, v ...interface{})  {
+func (l *Logger) ERROR(format string, v ...interface{}) {
 	l.Printf(ERROR, format, v)
 }
 

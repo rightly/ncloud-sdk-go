@@ -1,4 +1,4 @@
-package vodtranscoder
+package vodtranscoders
 
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"

@@ -36,7 +36,7 @@ go get github.com/rightly/ncloud-sdk-go
 ```go
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
-	"github.com/rightly/ncloud-sdk-go/service/media/vodtranscoder"
+	vodtranscoders
 	"github.com/rightly/ncloud-sdk-go/key"
 	"fmt"
 )

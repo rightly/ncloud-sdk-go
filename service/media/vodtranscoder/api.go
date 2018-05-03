@@ -1,10 +1,10 @@
-package vodtranscoders
+package vodtranscoder
 
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
 )
 
-// Actions
+// Actions is VOD Transcoder API operation endpoints
 const (
 	jobAction =  SDKVersion + "jobs"
 	presetAction = SDKVersion + "presets"

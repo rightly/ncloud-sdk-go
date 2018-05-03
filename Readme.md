@@ -36,7 +36,7 @@ go get github.com/rightly/ncloud-sdk-go
 ```go
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
-	vodtranscoders
+	"github.com/rightly/ncloud-sdk-go/vodtranscoder"
 	"github.com/rightly/ncloud-sdk-go/key"
 	"fmt"
 )
@@ -56,30 +56,30 @@ func main() {
 	cfg := ncloud.LoadDefaultConfig(cred)
     
 	// Product 인스턴스 생성
-	svc := VODTranscoder.New(cfg)
+	svc := vodranscoder.New(cfg)
     
 	// Job 생성 요청을 위한 파라미터 인스턴스 생성
-	inputs := []VODTranscoder.CreateJobInput{
+	inputs := []vodranscoder.CreateJobInput{
 		{
 			InputContainerName: "vt-storage",
 			InputFilePath:      "/test.mp4",
 		},
 	}
 
-	outputFiles := []VODTranscoder.OutputFile{
+	outputFiles := []vodranscoder.OutputFile{
 		{
 			PresetId:       "9bc226df-04c9-11e8-8379-00505685080f",
 			OutputFileName: "api-test",
 		},
 	}
-	output := VODTranscoder.CreateJobOutput{
+	output := vodranscoder.CreateJobOutput{
 		OutputContainerName:    "vt-storage",
 		ThumbnailOn:            "true",
 		ThumbnailContainerName: "vt-thumb",
 		OutputFiles:            outputFiles,
 	}
 
-	createJobParam := &VODTranscoder.CreateJobParam{
+	createJobParam := &vodranscoder.CreateJobParam{
 		JobName:jobNmae,
 		Inputs: inputs,
 		Output:output,
@@ -94,3 +94,4 @@ func main() {
 	}
 }
 ```
+

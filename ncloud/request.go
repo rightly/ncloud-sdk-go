@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"bytes"
-	"fmt"
 )
 
 type Request struct {
@@ -87,26 +86,5 @@ func (r *Request)Send() (err error) {
 		}
 	}
 
-	fmt.Println(r.Data)
-
 	return nil
 }
-
-//Request Parameter 검증
-func Validate()  {
-	
-}
-/*
-func debugLogReqError(r *Request, stage string, retrying bool, err error) {
-	if !r.Config.LogLevel.Matches(LogDebugWithRequestErrors) {
-		return
-	}
-
-	retryStr := "not retrying"
-	if retrying {
-		retryStr = "will retry"
-	}
-
-	r.Config.Logger.Log(fmt.Sprintf("DEBUG: %s %s/%s failed, %s, error %v",
-		stage, r.Metadata.ServiceName, r.Operation.Name, retryStr, err))
-}*/

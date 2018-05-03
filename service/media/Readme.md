@@ -19,7 +19,7 @@
 ```go
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
-	"github.com/rightly/ncloud-sdk-go/service/media/VODTranscoder"
+	"github.com/rightly/ncloud-sdk-go/service/media/vodtranscoder"
 	"github.com/rightly/ncloud-sdk-go/key"
 	"fmt"
 )
@@ -74,9 +74,10 @@ func main() {
 
 	// 요청 및 응답
 	resp, err := req.Send()
-
-	if err == nil {
-		fmt.Println(resp.String())
+	
+	// Request and indented response print
+	if resp, err := req.Send(); err == nil {
+		fmt.Println(resp)
 	}
 }
 ```

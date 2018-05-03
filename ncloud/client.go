@@ -5,9 +5,9 @@ import (
 	"os"
 )
 
-//TODO : Credential 외의 다른 변수들 활용.
+// TODO: Documenting
 
-//Client is
+// Client is for using each service API operation
 type Client struct {
 	Config
 	Credential *Credentials

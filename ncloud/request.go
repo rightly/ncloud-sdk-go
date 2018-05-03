@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"encoding/json"
 	"bytes"
+	"fmt"
 )
 
 type Request struct {
@@ -18,7 +19,6 @@ type Request struct {
 	Delay        time.Time
 	MaxRetries   int
 	Body         []byte
-	Params       interface{}
 	Error        error
 	Data         interface{}
 }
@@ -45,19 +45,21 @@ func New(operation *Operation, credentials *Credentials, response interface{}, c
 
 	httpReq, err := http.NewRequest(method, url, byteBody)
 
-	// Set AUTHPARAM
-	httpReq.Header["x-ncp-apigw-timestamp"] = []string{ credentials.Timestamp }
-	httpReq.Header["x-ncp-apigw-api-key"] = []string{ credentials.ApiKey }
-	httpReq.Header["x-ncp-iam-access-key"] = []string{ credentials.AccessKey }
-	httpReq.Header["x-ncp-apigw-signature-v1"] = []string{ credentials.Signature }
-	httpReq.Header["Content-Type"] = []string {"application/json"}
+	// api gateway 인증이 필요한 API 일 경우 request에 인증헤더 추가
+	if operation.Credential == "apigw" {
+		httpReq.Header["x-ncp-apigw-timestamp"] = []string{credentials.Timestamp}
+		httpReq.Header["x-ncp-apigw-api-key"] = []string{credentials.ApiKey}
+		httpReq.Header["x-ncp-iam-access-key"] = []string{credentials.AccessKey}
+		httpReq.Header["x-ncp-apigw-signature-v1"] = []string{credentials.Signature}
+		httpReq.Header["Content-Type"] = []string{"application/json"}
+	}
 
 	req := &Request{
-		Operation:operation,
-		HTTPRequest:httpReq,
-		Error:err,
-		Data: response,
-		HTTPHandler:client,
+		Operation:   operation,
+		HTTPRequest: httpReq,
+		Error:       err,
+		Data:        response,
+		HTTPHandler: client,
 	}
 	return req
 }
@@ -65,30 +67,27 @@ func New(operation *Operation, credentials *Credentials, response interface{}, c
 //Send is Request 정책에 대해 설정
 func (r *Request)Send() (err error) {
 	r.HTTPResponse, err = r.HTTPHandler.Run(r)
-
 	if r.HTTPResponse != nil {
 		defer r.HTTPResponse.Body.Close()
 	}
-
 	if err != nil {
 		return
 	}
 
 	r.Body, err = ioutil.ReadAll(r.HTTPResponse.Body)
-
 	if err != nil {
 		return
 	}
 
 	size := len(r.Body)
-
 	if size > 0 {
-		err = json.Unmarshal(r.Body, r.Data)
-
+		err = Unmarshal(r.Body, r.Data)
 		if err != nil {
 			return
 		}
 	}
+
+	fmt.Println(r.Data)
 
 	return nil
 }

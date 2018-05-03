@@ -1,4 +1,4 @@
-package VODTranscoder
+package vodtranscoder
 
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
@@ -14,7 +14,7 @@ type VodTranscoder struct {
 	*ncloud.Client
 }
 
-//VOD Transcoder OpenAPI End Point
+// VOD Transcoder OpenAPI End Point
 const END_POINT = "https://vodtranscoder.apigw.ntruss.com"
 
 // Used for custom client initialization logic

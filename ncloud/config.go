@@ -4,11 +4,13 @@ import (
 	"net/http"
 	"time"
 	"log"
-	"os"
 )
+
+// TODO: Documenting
 
 type Config struct {
 	Client *http.Client
+	LogLevel
 	*Retryer
 	*Logger
 	*Credentials
@@ -30,6 +32,8 @@ func LoadDefaultConfig(cred *Credentials) *Config {
 		Transport: defaultTransport,
 	}
 
+	defaultLogLevel := INFO
+
 	defaultRetryer := &Retryer{
 		Delay:       30 * time.Second,
 		MaxRetries:  3,
@@ -37,13 +41,26 @@ func LoadDefaultConfig(cred *Credentials) *Config {
 	}
 
 	defaultLogger := &Logger{
-		Logger: log.New(os.Stdout, "" , log.LstdFlags),
+		Logger:NewLogger("ncloudapi.log", "", log.Ldate|log.Ltime|log.Lshortfile),
+		logLevel:defaultLogLevel,
 	}
 
 	return &Config{
 		Client:      defaultClient,
+		LogLevel:    defaultLogLevel,
 		Retryer:     defaultRetryer,
 		Logger:      defaultLogger,
 		Credentials: cred,
+	}
+}
+
+func LoadConfig(cred *Credentials, logLevel int, r *Retryer, l *Logger) *Config {
+	if cred == nil {
+		return nil
+	}
+
+
+	return &Config {
+
 	}
 }

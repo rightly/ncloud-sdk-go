@@ -1,7 +1,8 @@
-package VODTranscoder
+package vodtranscoder
 
 import (
-	"encoding/json"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
+	"reflect"
 )
 
 // Job operation common properties
@@ -75,11 +76,12 @@ type CreateJobResponse struct {
 }
 
 func (r *CreateJobResponse) String() string {
-	b, err := json.Marshal(r)
-	if err != nil {
-		return "Marshal Fail"
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
 	}
-	return string(b[:])
+	return reflect.TypeOf(r).String() + ".String() is failed"
 }
 
 type CreateJobParam struct {
@@ -107,11 +109,12 @@ type JobCreateCancelResponse struct {
 }
 
 func (r *JobCreateCancelResponse) String() string {
-	b, err := json.Marshal(r)
-	if err != nil {
-		return "Marshal Fail"
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
 	}
-	return string(b[:])
+	return reflect.TypeOf(r).String() + ".String() is failed"
 }
 
 //JobListResponse Object
@@ -121,11 +124,12 @@ type JobListResponse struct {
 }
 
 func (r *JobListResponse) String() string {
-	b, err := json.Marshal(r)
-	if err != nil {
-		return "Marshal Fail"
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
 	}
-	return string(b[:])
+	return reflect.TypeOf(r).String() + ".String() is failed"
 }
 
 //JobInfoResponse Object
@@ -136,19 +140,12 @@ type JobInfoResponse struct {
 }
 
 func (r *JobInfoResponse) String() string {
-	b, err := json.Marshal(r)
-	if err != nil {
-		return "Marshal Fail"
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
 	}
-	return string(b[:])
-}
-
-//
-//
-//
-//
-func (r *JobInfoResponse)PrettyPrint() string {
-	return ""
+	return reflect.TypeOf(r).String() + ".String() is failed"
 }
 
 // Preset request operations
@@ -185,11 +182,12 @@ type PresetListResponse struct {
 }
 
 func (r *PresetListResponse) String() string {
-	b, err := json.Marshal(r)
-	if err != nil {
-		return "Marshal Fail"
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
 	}
-	return string(b[:])
+	return reflect.TypeOf(r).String() + ".String() is failed"
 }
 
 //
@@ -200,9 +198,10 @@ type PresetInfoResponse struct {
 }
 
 func (r *PresetInfoResponse) String() string {
-	b, err := json.Marshal(r)
-	if err != nil {
-		return "Marshal Fail"
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
 	}
-	return string(b[:])
+	return reflect.TypeOf(r).String() + ".String() is failed"
 }

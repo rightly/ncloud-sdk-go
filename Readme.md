@@ -15,6 +15,7 @@ go get github.com/rightly/ncloud-sdk-go
 ## AI & Application
 
 - Geolocation
+  - location 조회 - GeoLocationRequest() // 현재 Json response만 가능
 
 ## Media
 
@@ -35,7 +36,7 @@ go get github.com/rightly/ncloud-sdk-go
 ```go
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
-	"github.com/rightly/ncloud-sdk-go/service/media/VODTranscoder"
+	"github.com/rightly/ncloud-sdk-go/service/media/vodtranscoder"
 	"github.com/rightly/ncloud-sdk-go/key"
 	"fmt"
 )
@@ -87,9 +88,9 @@ func main() {
 	// 위 생성한 객체를 파라미터로 CreateJobRequest 생성
 	req := svc.CreateJobRequest(createJobParam)
 
-	// 요청 및 응답
+	// Request and indented response print
 	if resp, err := req.Send(); err == nil {
-		fmt.Println(resp.String())
+		fmt.Println(resp)
 	}
 }
 ```

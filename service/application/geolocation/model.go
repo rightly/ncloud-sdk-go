@@ -1,58 +1,50 @@
 package geolocation
 
-import "encoding/xml"
+import (
+	"github.com/rightly/ncloud-sdk-go/ncloud"
+	"reflect"
+	"encoding/xml"
+)
 
 //JSON Response를 위한 struct
-type JsonResponse struct {
-	ReturnCode    int          `json:"returnCode"`
-	ReturnMessage string       `json:"returnMessage"`
-	RequestId     string       `json:"requestId"`
-	GeoLocation   JsonLocation `json:"geolocation"`
+type GeolocationResponse struct {
+	XMLName       xml.Name      `xml:"GeolocationResponse"`
+	ReturnCode    int           `json:"returnCode" xml:"returnCode"`
+	RequestId     string        `json:"requestId" xml:"requestId"`
+	GeoLocation   Location      `json:"geolocation" xml:"geolocation"`
+	Error         ErrorResponse `json:"responseError" xml:"responseError"`
 }
 
-type ResponseError struct {
-	ResponseError Status `json:"responseError"`
-}
-
-type Status struct {
-	ReturnCode    string `json:"returnCode"`
-	ReturnMessage string `json:"returnMessage"`
-}
-
-type JsonLocation struct {
-	Country string  `json:"country"`
-	Code    string  `json:"code"`
-	R1      string  `json:"r1"`
-	R2      string  `json:"r2"`
-	R3      string  `json:"r3"`
-	Lat     float64 `json:"lat"`
-	Long    float64 `json:"long"`
-	Net     string  `json:"net"`
-}
-
-//XML Response 를 위한 struct
-type XmlResponse struct {
-	XMLName       xml.Name    `xml:"getLocationResponse"`
-	ReturnCode    int         `xml:"returnCode"`
-	ReturnMessage string      `xml:"returnMessage"`
-	RequestId     string      `xml:"requestId"`
-	GeoLocation   XmlLocation `xml:"geoLocation"`
-}
-
-type XmlResponseError struct {
+type ErrorResponse struct {
 	XMLName       xml.Name `xml:"responseError"`
-	ReturnCode    string   `xml:"returnCode"`
-	ReturnMessage string   `xml:"returnMessage"`
+	ReturnCode    string   `json:"returnCode" xml:"returnCode"`
+	ReturnMessage string   `json:"returnMessage" xml:"returnMessage"`
 }
 
-type XmlLocation struct {
-	Country string  `xml:"country"`
-	Code    string  `xml:"code"`
-	R1      string  `xml:"r1"`
-	R2      string  `xml:"r2"`
-	R3      string  `xml:"r3"`
-	Lat     float64 `xml:"lat"`
-	Long    float64 `xml:"long"`
-	Net     string  `xml:"net"`
+type Location struct {
+	XMLName xml.Name `xml:"geolocation"`
+	Country string   `json:"country" xml:"country"`
+	Code    string   `json:"code" xml:"code"`
+	R1      string   `json:"r1" xml:"r1"`
+	R2      string   `json:"r2" xml:"r2"`
+	R3      string   `json:"r3" xml:"r3"`
+	Lat     float64  `json:"lat" xml:"lat"`
+	Long    float64  `json:"long" xml:"long"`
+	Net     string   `json:"net" xml:"net"`
 }
 
+type GeolocationParam struct {
+	IP                 string
+	Enc                string
+	Ext                string
+	ResponseFormatType string
+}
+
+func (r *GeolocationResponse) String() string {
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
+	}
+	return reflect.TypeOf(r).String() + ".String() is failed"
+}

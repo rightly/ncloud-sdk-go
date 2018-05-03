@@ -4,19 +4,7 @@ import (
 	"net/http"
 )
 
-type HttpHandler struct {
-	HttpClient *http.Client
-	*Retryer
-	*Logger
-}
-
-func NewHttpHandler(c *http.Client, l *Logger ,r *Retryer) *HttpHandler {
-	return &HttpHandler{
-		HttpClient: c,
-		Retryer:    r,
-		Logger:     l,
-	}
-}
+// TODO: Documenting
 
 type HttpClient interface {
 	Do(*http.Request) (*http.Response, error)
@@ -37,6 +25,20 @@ func AddHandler(c HttpClient, h ...Decorator) HttpClient {
 		addedHandler = function(addedHandler)
 	}
 	return addedHandler
+}
+
+type HttpHandler struct {
+	HttpClient *http.Client
+	*Retryer
+	*Logger
+}
+
+func NewHttpHandler(c *http.Client, l *Logger ,r *Retryer) *HttpHandler {
+	return &HttpHandler{
+		HttpClient: c,
+		Retryer:    r,
+		Logger:     l,
+	}
 }
 
 func (h *HttpHandler)Run(r *Request) (*http.Response, error) {

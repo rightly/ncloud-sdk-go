@@ -1,4 +1,4 @@
-package VODTranscoder
+package vodtranscoder
 
 const ProductName = "media-vodtranscoder"
-const SDKVersion = "/api/v1"
+const SDKVersion = "/api/v1/"

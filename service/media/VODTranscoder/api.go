@@ -1,4 +1,4 @@
-package VODTranscoder
+package vodtranscoder
 
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
@@ -6,8 +6,8 @@ import (
 
 // Actions
 const (
-	jobAction =  SDKVersion + "/jobs"
-	presetAction = SDKVersion + "/presets"
+	jobAction =  SDKVersion + "jobs"
+	presetAction = SDKVersion + "presets"
 )
 
 /*
@@ -42,27 +42,27 @@ func (r *CreateJobRequest)Send() (*CreateJobResponse, error) {
 // 	// Example
 // 	// CreateJobParam 객체 생성
 // 	jobNmae := "api-test"
-//	inputs := []VODTranscoder.CreateJobInput{
+//	inputs := []vodtranscoder.CreateJobInput{
 //		{
 //			InputContainerName: "vt-storage",
 //			InputFilePath:      "/test.mp4",
 //		},
 //	}
 //
-//	outputFiles := []VODTranscoder.OutputFile{
+//	outputFiles := []vodtranscoder.OutputFile{
 //		{
 //			PresetId:       "9bc226df-04c9-11e8-8379-00505685080f",
 //			OutputFileName: "api-test",
 //		},
 //	}
-//	output := VODTranscoder.CreateJobOutput{
+//	output := vodtranscoder.CreateJobOutput{
 //		OutputContainerName:    "vt-storage",
 //		ThumbnailOn:            "true",
 //		ThumbnailContainerName: "vt-thumb",
 //		OutputFiles:            outputFiles,
 //	}
 //
-//	createJobParam := &VODTranscoder.CreateJobParam{
+//	createJobParam := &vodtranscoder.CreateJobParam{
 //		JobName:jobNmae,
 //		Inputs: inputs,
 //		Output:output,

@@ -11,6 +11,8 @@ import (
 	"github.com/rightly/ncloud-sdk-go/oauth"
 )
 
+// TODO: Documenting
+
 type Credentials struct {
 	Method    string
 	Timestamp string

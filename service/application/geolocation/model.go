@@ -3,12 +3,10 @@ package geolocation
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
 	"reflect"
-	"encoding/xml"
 )
 
 //JSON Response를 위한 struct
 type GeolocationResponse struct {
-	XMLName       xml.Name      `xml:"GeolocationResponse"`
 	ReturnCode    int           `json:"returnCode" xml:"returnCode"`
 	RequestId     string        `json:"requestId" xml:"requestId"`
 	GeoLocation   Location      `json:"geolocation" xml:"geolocation"`
@@ -16,13 +14,11 @@ type GeolocationResponse struct {
 }
 
 type ErrorResponse struct {
-	XMLName       xml.Name `xml:"responseError"`
 	ReturnCode    string   `json:"returnCode" xml:"returnCode"`
 	ReturnMessage string   `json:"returnMessage" xml:"returnMessage"`
 }
 
 type Location struct {
-	XMLName xml.Name `xml:"geolocation"`
 	Country string   `json:"country" xml:"country"`
 	Code    string   `json:"code" xml:"code"`
 	R1      string   `json:"r1" xml:"r1"`

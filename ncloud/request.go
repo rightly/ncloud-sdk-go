@@ -23,12 +23,12 @@ type Request struct {
 }
 
 type Operation struct {
-	Name       string
-	Credential string
-	Method     string
-	Path       string
-	Url        string
-	Param      interface{}
+	Name        string
+	Credentials string
+	Method      string
+	Path        string
+	Url         string
+	Param       interface{}
 }
 
 func New(operation *Operation, credentials *Credentials, response interface{}, client *HttpHandler) *Request {
@@ -45,7 +45,7 @@ func New(operation *Operation, credentials *Credentials, response interface{}, c
 	httpReq, err := http.NewRequest(method, url, byteBody)
 
 	// api gateway 인증이 필요한 API 일 경우 request에 인증헤더 추가
-	if operation.Credential == "apigw" {
+	if operation.Credentials == "apigw" {
 		httpReq.Header["x-ncp-apigw-timestamp"] = []string{credentials.Timestamp}
 		httpReq.Header["x-ncp-apigw-api-key"] = []string{credentials.ApiKey}
 		httpReq.Header["x-ncp-iam-access-key"] = []string{credentials.AccessKey}
@@ -64,7 +64,7 @@ func New(operation *Operation, credentials *Credentials, response interface{}, c
 }
 
 //Send is Request 정책에 대해 설정
-func (r *Request)Send() (err error) {
+func (r *Request) Send() (err error) {
 	r.HTTPResponse, err = r.HTTPHandler.Run(r)
 	if r.HTTPResponse != nil {
 		defer r.HTTPResponse.Body.Close()

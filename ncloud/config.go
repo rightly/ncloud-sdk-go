@@ -16,6 +16,8 @@ type Config struct {
 	*Credentials
 }
 
+// LoadDefaltConfig 는 service api request에 필요한 기본 설정값을 초기화한다.
+// No Logging, No Retrying 이 기본 설정값
 func LoadDefaultConfig(cred *Credentials) *Config {
 	if cred == nil {
 		return nil
@@ -35,10 +37,10 @@ func LoadDefaultConfig(cred *Credentials) *Config {
 	defaultRetryer := &Retryer{
 		Delay:       30 * time.Second,
 		MaxRetries:  3,
-		ShouldRetry: true,
+		ShouldRetry: false,
 	}
 
-	defaultLogLevel := INFO
+	defaultLogLevel := OFF
 
 	defaultLogger := &Logger{
 		Logger:NewLogger("ncloud_api.log", "", log.Ldate|log.Ltime|log.Lshortfile),
@@ -80,7 +82,7 @@ func LoadConfig(cred *Credentials, args... interface{}) *Config {
 	defaultLogLevel := INFO
 
 	defaultLogger := &Logger{
-		Logger:NewLogger("ncloud_api.log", "", log.Ldate|log.Ltime|log.Lshortfile),
+		Logger:NewLogger("ncloud_api.log", "", log.LstdFlags),
 	}
 
 	defaultLogger.SetLogLevel(defaultLogLevel)

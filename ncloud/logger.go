@@ -40,14 +40,14 @@ func (l LogLevel) String() string {
 	return logLevels[l]
 }
 
-func (l *Logger)SetLogLevel(level LogLevel) {
+func (l *Logger) SetLogLevel(level LogLevel) {
 	mu.Lock()
 	defer mu.Unlock()
 	l.logLevel = level
 }
 
 // Retrieve the current logging Level.
-func (l *Logger)LogLevel() LogLevel {
+func (l *Logger) LogLevel() LogLevel {
 	mu.RLock()
 	defer mu.RUnlock()
 	return l.logLevel
@@ -86,11 +86,10 @@ func (l *Logger) Error(format string, v ...interface{}) {
 }
 
 func WithLogger(l *Logger) Decorator {
-	return func(c HttpClient) HttpClient {
-		return HandlerFunc(func(r *http.Request) (*http.Response, error) {
+	return func(c httpClient) httpClient {
+		return handlerFunc(func(r *http.Request) (*http.Response, error) {
 			l.Info(" %s", r.Method, r.URL)
 			return c.Do(r)
 		})
 	}
 }
-

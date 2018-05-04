@@ -49,8 +49,10 @@ func main() {
 	// Key Load
 	keyConf := key.Load(configPath)
 
-	// Credentials 인스턴스 생성
-	cred := ncloud.SetCredential(keyConf.Key.ApiKey,keyConf.Key.AccessKey,keyConf.Key.SecretKey)
+	// Set Credentials, 발급받은 key 값 설정
+	// cred := ncloud.MakeCredential(keyConf.Key.ApiKey,keyConf.Key.AccessKey,keyConf.Key.SecretKey)
+	// or
+	cred := ncloud.MakeCredentialFromKey(keyConf)
 	
 	// Configuration 인스턴스 생성
 	cfg := ncloud.LoadDefaultConfig(cred)

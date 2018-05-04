@@ -9,6 +9,7 @@ import (
 	"encoding/base64"
 	"net/http"
 	"github.com/rightly/ncloud-sdk-go/oauth"
+	"github.com/rightly/ncloud-sdk-go/key"
 )
 
 // TODO: Documenting
@@ -25,8 +26,7 @@ type Credentials struct {
 }
 
 // 초기 api, access, secret key 값을 받아 Credential Struct에 채워준다.
-func SetCredential(apiKey, accessKey, secretKey string) *Credentials  {
-
+func MakeCredential(apiKey string, accessKey string, secretKey string) *Credentials {
 	return &Credentials{
 		ApiKey:apiKey,
 		AccessKey:accessKey,
@@ -34,13 +34,21 @@ func SetCredential(apiKey, accessKey, secretKey string) *Credentials  {
 	}
 }
 
-func (c *Credentials) BuildOauthClient(client *http.Client) {
+func MakeCredentialFromKey(c key.KeyConfig) *Credentials{
+	return &Credentials{
+		ApiKey:    c.Key.ApiKey,
+		AccessKey: c.Key.AccessKey,
+		SecretKey: c.Key.SecretKey,
+	}
+}
+
+func (c *Credentials) setOauthClient(client *http.Client) {
 	c.config = oauth.NewConfig(c.AccessKey, c.SecretKey)
 	c.token = oauth.NewToken("", "")
 	client = c.config.Client(oauth.NoContext, c.token)
 }
 
-func (c *Credentials)BuildAuthParams(method, apiUrl string) {
+func (c *Credentials) setAuthParams(method, apiUrl string) {
 
 	c.Method = method
 	// millisecond timestamp
@@ -48,7 +56,7 @@ func (c *Credentials)BuildAuthParams(method, apiUrl string) {
 	c.Signature = c.makeSignature(apiUrl)
 }
 
-func (c *Credentials)makeSignature(apiUrl string) string {
+func (c *Credentials) makeSignature(apiUrl string) string {
 	var message string
 
 	message = fmt.Sprint(message, c.Method + " ") // Request Method

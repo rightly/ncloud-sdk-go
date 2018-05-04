@@ -10,8 +10,8 @@ import (
 // Client is for using each service API operation
 type Client struct {
 	Config
-	Credential *Credentials
-	Handler *HttpHandler
+	Credentials *Credentials
+	Handler     *HttpHandler
 }
 
 func NewClient(cfg *Config) *Client {
@@ -20,26 +20,26 @@ func NewClient(cfg *Config) *Client {
 	handler := NewHttpHandler(cfg.Client, cfg.Logger, cfg.Retryer)
 
 	svc := &Client{
-		Credential: cfg.Credentials,
+		Credentials: cfg.Credentials,
 		Handler: handler,
 	}
 
 	return svc
 }
 
-func (c *Client)NewRequest(operation *Operation, response interface{}, handler *HttpHandler) *Request {
+func (c *Client) NewRequest(operation *Operation, response interface{}, handler *HttpHandler) *Request {
 	method := operation.Method
 	path := operation.Path
 
-	switch operation.Credential {
+	switch operation.Credentials {
 	case "apigw":
-		c.Credential.BuildAuthParams(method, path)
+		c.Credentials.setAuthParams(method, path)
 	case "oauth":
-		c.Credential.BuildOauthClient(c.Handler.HttpClient)
+		c.Credentials.setOauthClient(c.Handler.HttpClient)
 	default:
 		log.Printf("[%s.newRequest().NewRequest()] create credential fail, operation.Credential is not valid value", operation.Name)
 		os.Exit(1)
 	}
 
-	return New(operation, c.Credential, response, handler)
+	return New(operation, c.Credentials, response, handler)
 }

@@ -39,7 +39,7 @@ func New(cfg *ncloud.Config) *VodTranscoder {
 
 // newRequest creates a new request for a VodTranscoder operation and runs any
 // custom request initialization.
-func (c *VodTranscoder)newRequest(operation *ncloud.Operation, response interface{}, client *ncloud.HttpHandler) *ncloud.Request  {
+func (c *VodTranscoder) newRequest(operation *ncloud.Operation, response interface{}, client *ncloud.HttpHandler) *ncloud.Request  {
 	req := c.NewRequest(operation, response, client)
 
 	// Run custom request initialization if present

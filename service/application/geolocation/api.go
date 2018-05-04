@@ -12,7 +12,7 @@ type GeoLocationRequest struct {
 	*ncloud.Request
 }
 
-func (r *GeoLocationRequest)Send() (*GeolocationResponse, error) {
+func (r *GeoLocationRequest) Send() (*GeolocationResponse, error) {
 	err := r.Request.Send()
 	if err != nil {
 		return nil, err
@@ -32,7 +32,7 @@ func (c *GeoLocation) GeoLocationRequest(p *GeolocationParam) GeoLocationRequest
 
 	op := &ncloud.Operation{
 		Name:opName,
-		Credential: "apigw",
+		Credentials: "apigw",
 		Method:"GET",
 		Path:path,
 		Url:END_POINT + path,

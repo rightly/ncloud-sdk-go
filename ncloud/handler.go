@@ -6,20 +6,20 @@ import (
 
 // TODO: Documenting
 
-type HttpClient interface {
+type httpClient interface {
 	Do(*http.Request) (*http.Response, error)
 }
 
-type HandlerFunc func(*http.Request) (*http.Response, error)
+type handlerFunc func(*http.Request) (*http.Response, error)
 
-func (f HandlerFunc)Do(r *http.Request) (*http.Response, error) {
+func (f handlerFunc) Do(r *http.Request) (*http.Response, error) {
 
 	return f(r)
 }
 
-type Decorator func(HttpClient) HttpClient
+type Decorator func(httpClient) httpClient
 
-func AddHandler(c HttpClient, h ...Decorator) HttpClient {
+func addHandler(c httpClient, h ...Decorator) httpClient {
 	addedHandler := c
 	for _, function := range h {
 		addedHandler = function(addedHandler)
@@ -41,9 +41,9 @@ func NewHttpHandler(c *http.Client, l *Logger ,r *Retryer) *HttpHandler {
 	}
 }
 
-func (h *HttpHandler)Run(r *Request) (*http.Response, error) {
+func (h *HttpHandler) Run(r *Request) (*http.Response, error) {
 
-	c := AddHandler(h.HttpClient,
+	c := addHandler(h.HttpClient,
 		WithLogger(h.Logger),
 		WithRetryer(h.Retryer),
 	)

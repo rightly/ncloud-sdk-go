@@ -4,7 +4,7 @@ import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
 )
 
-// Actions is VOD Transcoder API operation endpoints
+// Actions
 const (
 	jobAction =  SDKVersion + "jobs"
 	presetAction = SDKVersion + "presets"
@@ -24,7 +24,7 @@ type CreateJobRequest struct {
 }
 
 // Send marshals and sends the Job create API request.
-func (r *CreateJobRequest)Send() (*CreateJobResponse, error) {
+func (r *CreateJobRequest) Send() (*CreateJobResponse, error) {
 	err := r.Request.Send()
 	if err != nil {
 		return nil, err
@@ -79,13 +79,13 @@ func (r *CreateJobRequest)Send() (*CreateJobResponse, error) {
 //		fmt.Println(resp.String())
 //	}
 //
-func (c *VodTranscoder)CreateJobRequest(p *CreateJobParam) CreateJobRequest {
+func (c *VodTranscoder) CreateJobRequest(p *CreateJobParam) CreateJobRequest {
 
 	const opName = "CreateJobRequest"
 
 	op := &ncloud.Operation{
 		Name:opName,
-		Credential: "apigw",
+		Credentials: "apigw",
 		Method:"POST",
 		Path:jobAction,
 		Url:END_POINT + jobAction,
@@ -105,7 +105,7 @@ type JobCreateCancelRequest struct {
 }
 
 // Send marshals and sends the Job create cancel API request.
-func (r JobCreateCancelRequest)Send() (*JobCreateCancelResponse, error) {
+func (r JobCreateCancelRequest) Send() (*JobCreateCancelResponse, error) {
 	err := r.Request.Send()
 	if err != nil {
 		return nil, err
@@ -131,13 +131,13 @@ func (r JobCreateCancelRequest)Send() (*JobCreateCancelResponse, error) {
 //		fmt.Println(resp.String())
 //	}
 //
-func (c *VodTranscoder)JobCreateCancelRequest(jobId string) JobCreateCancelRequest {
+func (c *VodTranscoder) JobCreateCancelRequest(jobId string) JobCreateCancelRequest {
 	const opName = "JobCreateCancelRequest"
 	jobCancelAction := jobAction + "/" + jobId + "/cancel"
 
 	op := &ncloud.Operation{
 		Name:opName,
-		Credential: "apigw",
+		Credentials: "apigw",
 		Method:"POST",
 		Path:jobCancelAction,
 		Url:END_POINT + jobCancelAction,
@@ -156,7 +156,7 @@ type JobListRequest struct {
 }
 
 // Send marshals and sends the View information of job list API request.
-func (r JobListRequest)Send() (*JobListResponse, error) {
+func (r JobListRequest) Send() (*JobListResponse, error) {
 	err := r.Request.Send()
 	if err != nil {
 		return nil, err
@@ -180,13 +180,13 @@ func (r JobListRequest)Send() (*JobListResponse, error) {
 //		fmt.Println(resp.String())
 //	}
 //
-func (c *VodTranscoder)JobListRequest() JobListRequest {
+func (c *VodTranscoder) JobListRequest() JobListRequest {
 
 	const opName = "JobListRequest"
 
 	op := &ncloud.Operation{
 		Name:opName,
-		Credential: "apigw",
+		Credentials: "apigw",
 		Method:"GET",
 		Path:jobAction,
 		Url:END_POINT + jobAction,
@@ -232,14 +232,14 @@ func (r *JobInfoRequest)Send() (*JobInfoResponse, error) {
 //		fmt.Println(resp.String())
 //	}
 //
-func (c *VodTranscoder)JobInfoRequest(jobId string) JobInfoRequest {
+func (c *VodTranscoder) JobInfoRequest(jobId string) JobInfoRequest {
 
 	const opName = "JobInfoRequest"
 	url := jobAction + "/" + jobId
 
 	op := &ncloud.Operation{
 		Name:   opName,
-		Credential: "apigw",
+		Credentials: "apigw",
 		Method: "GET",
 		Path:   url,
 		Url:    END_POINT + url,
@@ -264,7 +264,7 @@ type PresetListRequest struct {
 }
 
 // Send marshals and sends the View information of preset list API request.
-func (r *PresetListRequest)Send() (*PresetListResponse, error) {
+func (r *PresetListRequest) Send() (*PresetListResponse, error) {
 	err := r.Request.Send()
 	if err != nil {
 		return nil, err
@@ -290,12 +290,12 @@ func (r *PresetListRequest)Send() (*PresetListResponse, error) {
 //		fmt.Println(resp.String())
 //	}
 //
-func (c *VodTranscoder)PresetListRequest() PresetListRequest {
+func (c *VodTranscoder) PresetListRequest() PresetListRequest {
 	const opName= "PresetListRequest"
 
 	op := &ncloud.Operation{
 		Name:   opName,
-		Credential: "apigw",
+		Credentials: "apigw",
 		Method: "GET",
 		Path:   presetAction,
 		Url:    END_POINT + presetAction,
@@ -314,7 +314,7 @@ type PresetInfoRequest struct {
 }
 
 // Send marshals and sends the View information of specific preset API request.
-func (r *PresetInfoRequest)Send() (*PresetInfoResponse, error) {
+func (r *PresetInfoRequest) Send() (*PresetInfoResponse, error) {
 	err := r.Request.Send()
 	if err != nil {
 		return nil, err
@@ -340,13 +340,13 @@ func (r *PresetInfoRequest)Send() (*PresetInfoResponse, error) {
 //		fmt.Println(resp.String())
 //	}
 //
-func (c *VodTranscoder)PresetInfoRequest(presetId string) PresetInfoRequest {
+func (c *VodTranscoder) PresetInfoRequest(presetId string) PresetInfoRequest {
 	const opName= "PresetInfoRequest"
 	url := presetAction + "/" + presetId
 
 	op := &ncloud.Operation{
 		Name:   opName,
-		Credential: "apigw",
+		Credentials: "apigw",
 		Method: "GET",
 		Path:   url,
 		Url:    END_POINT + url,

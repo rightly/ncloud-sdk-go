@@ -16,8 +16,8 @@ type Retryer struct {
 
 func WithRetryer(rty *Retryer) Decorator {
 
-	return func(c HttpClient) HttpClient {
-		return HandlerFunc(func(r *http.Request) (resp *http.Response, err error) {
+	return func(c httpClient) httpClient {
+		return handlerFunc(func(r *http.Request) (resp *http.Response, err error) {
 			for i := 0; i <= rty.MaxRetries; i++ {
 				if resp, err = c.Do(r);
 					NoRetryCode(resp.StatusCode) == true ||

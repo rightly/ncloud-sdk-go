@@ -1,4 +1,4 @@
 package geolocation
 
-const ProductName = "application-geolocation"
-const SDKVersion = "/geolocation/v1/"
+const productName = "application-geolocation"
+const sdkVersion = "/geolocation/v1/"

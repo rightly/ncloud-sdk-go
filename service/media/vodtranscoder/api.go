@@ -6,8 +6,8 @@ import (
 
 // Actions
 const (
-	jobAction =  SDKVersion + "jobs"
-	presetAction = SDKVersion + "presets"
+	jobAction =  sdkVersion + "jobs"
+	presetAction = sdkVersion + "presets"
 )
 
 /*
@@ -79,7 +79,7 @@ func (r *CreateJobRequest) Send() (*CreateJobResponse, error) {
 //		fmt.Println(resp.String())
 //	}
 //
-func (c *VodTranscoder) CreateJobRequest(p *CreateJobParam) CreateJobRequest {
+func (c *VodTranscoder) CreateJobRequest(p *CreateJobRequestParam) CreateJobRequest {
 
 	const opName = "CreateJobRequest"
 
@@ -88,7 +88,7 @@ func (c *VodTranscoder) CreateJobRequest(p *CreateJobParam) CreateJobRequest {
 		Credentials: "apigw",
 		Method:"POST",
 		Path:jobAction,
-		Url:END_POINT + jobAction,
+		Url:endpoint + jobAction,
 		Param:p,
 	}
 
@@ -140,7 +140,7 @@ func (c *VodTranscoder) JobCreateCancelRequest(jobId string) JobCreateCancelRequ
 		Credentials: "apigw",
 		Method:"POST",
 		Path:jobCancelAction,
-		Url:END_POINT + jobCancelAction,
+		Url:endpoint + jobCancelAction,
 	}
 
 	response := &JobCreateCancelResponse{}
@@ -189,7 +189,7 @@ func (c *VodTranscoder) JobListRequest() JobListRequest {
 		Credentials: "apigw",
 		Method:"GET",
 		Path:jobAction,
-		Url:END_POINT + jobAction,
+		Url:endpoint + jobAction,
 	}
 
 	response := &JobListResponse{}
@@ -242,7 +242,7 @@ func (c *VodTranscoder) JobInfoRequest(jobId string) JobInfoRequest {
 		Credentials: "apigw",
 		Method: "GET",
 		Path:   url,
-		Url:    END_POINT + url,
+		Url:    endpoint + url,
 	}
 
 	response := &JobInfoResponse{}
@@ -298,7 +298,7 @@ func (c *VodTranscoder) PresetListRequest() PresetListRequest {
 		Credentials: "apigw",
 		Method: "GET",
 		Path:   presetAction,
-		Url:    END_POINT + presetAction,
+		Url:    endpoint + presetAction,
 	}
 
 	response := &PresetListResponse{}
@@ -349,7 +349,7 @@ func (c *VodTranscoder) PresetInfoRequest(presetId string) PresetInfoRequest {
 		Credentials: "apigw",
 		Method: "GET",
 		Path:   url,
-		Url:    END_POINT + url,
+		Url:    endpoint + url,
 	}
 
 	response := &PresetInfoResponse{}

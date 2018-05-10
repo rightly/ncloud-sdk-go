@@ -15,7 +15,7 @@ type VodTranscoder struct {
 }
 
 // VOD Transcoder OpenAPI End Point
-const END_POINT = "https://vodtranscoder.apigw.ntruss.com"
+const endpoint = "https://vodtranscoder.apigw.ntruss.com"
 
 // Used for custom client initialization logic
 var initClient func(*VodTranscoder)

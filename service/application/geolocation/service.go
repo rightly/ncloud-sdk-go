@@ -14,8 +14,8 @@ type GeoLocation struct {
 	*ncloud.Client
 }
 
-// VOD Transcoder OpenAPI End Point
-const END_POINT = "https://ncloud.apigw.ntruss.com"
+// GeoLocation OpenAPI End Point
+const endpoint = "https://ncloud.apigw.ntruss.com"
 
 // Used for custom client initialization logic
 var initClient func(*GeoLocation)
@@ -37,7 +37,7 @@ func New(cfg *ncloud.Config) *GeoLocation {
 	return svc
 }
 
-// newRequest creates a new request for a VodTranscoder operation and runs any
+// newRequest creates a new request for a GeoLocation operation and runs any
 // custom request initialization.
 func (c *GeoLocation) newRequest(operation *ncloud.Operation, response interface{}, client *ncloud.HttpHandler) *ncloud.Request  {
 	req := c.NewRequest(operation, response, client)

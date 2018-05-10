@@ -5,6 +5,22 @@ import (
 	"reflect"
 )
 
+// Job request operations
+// CreateJobResponse Object
+type CreateJobResponse struct {
+	ResponseStatus string `json:"responseStatus"`
+	Error                 `json:"error"`
+}
+
+func (r *CreateJobResponse) String() string {
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
+	}
+	return reflect.TypeOf(r).String() + ".String() is failed"
+}
+
 // Job operation common properties
 // Metadata is Video metadata properties
 type Metadata struct {
@@ -68,40 +84,6 @@ type Error struct {
 	Message   string `json:"message"`
 }
 
-// Job request operations
-// CreateJobResponse Object
-type CreateJobResponse struct {
-	ResponseStatus string `json:"responseStatus"`
-	Error                 `json:"error"`
-}
-
-func (r *CreateJobResponse) String() string {
-	unmarshal := "json"
-	indentedString, err := ncloud.String(r, unmarshal)
-	if err == nil {
-		return indentedString
-	}
-	return reflect.TypeOf(r).String() + ".String() is failed"
-}
-
-type CreateJobParam struct {
-	JobName string           `json:"jobName"`
-	Inputs  []CreateJobInput `json:"inputs"`
-	Output  CreateJobOutput  `json:"output"`
-}
-
-type CreateJobInput struct {
-	InputContainerName string `json:"inputContainerName"`
-	InputFilePath      string `json:"inputFilePath"`
-}
-
-type CreateJobOutput struct {
-	OutputContainerName    string       `json:"outputContainerName"`
-	ThumbnailOn            string       `json:"thumbnailOn"`
-	ThumbnailContainerName string       `json:"thumbnailContainerName"`
-	OutputFiles            []OutputFile `json:"outputFiles"`
-}
-
 // JobCreateCancelResponse Object
 type JobCreateCancelResponse struct {
 	ResponseStatus string `json:"responseStatus"`
@@ -149,6 +131,22 @@ func (r *JobInfoResponse) String() string {
 }
 
 // Preset request operations
+// PresetListResponse Object
+type PresetListResponse struct {
+	PresetOverviewList []PresetOverviewList `json:"presetOverviewList"`
+	ResponseStatus     string               `json:"responseStatus"`
+	Error                                   `json:"error"`
+}
+
+func (r *PresetListResponse) String() string {
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
+	}
+	return reflect.TypeOf(r).String() + ".String() is failed"
+}
+
 //
 type PresetOverviewList struct {
 	PresetId       string        `json:"presetId"`
@@ -174,22 +172,6 @@ type PresetProfile struct {
 	AudioChannel      int    `json:"audioChannel"`
 }
 
-//PresetListResponse Object
-type PresetListResponse struct {
-	PresetOverviewList []PresetOverviewList `json:"presetOverviewList"`
-	ResponseStatus     string               `json:"responseStatus"`
-	Error                                   `json:"error"`
-}
-
-func (r *PresetListResponse) String() string {
-	unmarshal := "json"
-	indentedString, err := ncloud.String(r, unmarshal)
-	if err == nil {
-		return indentedString
-	}
-	return reflect.TypeOf(r).String() + ".String() is failed"
-}
-
 //
 type PresetInfoResponse struct {
 	PresetOverviewList []PresetOverviewList `json:"presetOverviewList"`
@@ -204,4 +186,26 @@ func (r *PresetInfoResponse) String() string {
 		return indentedString
 	}
 	return reflect.TypeOf(r).String() + ".String() is failed"
+}
+
+///
+/// Request struct
+///
+
+type CreateJobRequestParam struct {
+	JobName string           `json:"jobName"`
+	Inputs  []CreateJobInput `json:"inputs"`
+	Output  CreateJobOutput  `json:"output"`
+}
+
+type CreateJobInput struct {
+	InputContainerName string `json:"inputContainerName"`
+	InputFilePath      string `json:"inputFilePath"`
+}
+
+type CreateJobOutput struct {
+	OutputContainerName    string       `json:"outputContainerName"`
+	ThumbnailOn            string       `json:"thumbnailOn"`
+	ThumbnailContainerName string       `json:"thumbnailContainerName"`
+	OutputFiles            []OutputFile `json:"outputFiles"`
 }

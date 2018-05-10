@@ -3,19 +3,18 @@
 ### Product And API List
 
 - VOD Transcoder
-    - Job Operation
-        - Job 생성 - CreateJobRequest()
-        - Job 생성 취소 - JobCreateCancelRequest()
-        - Job 목록 조회 - JobListRequest()
-        - Job 정보 조회 - JobInfoRequest()
-
-    - Preset Operation
-        - Preset 목록 조회 - PresetListRequest()
-        - Preset 정보 조회 - PresetInfoRequest()
-
+  - Job Operation
+    - Job 생성 - CreateJobRequest()
+    - Job 생성 취소 - JobCreateCancelRequest()
+    - Job 목록 조회 - JobListRequest()
+    - Job 정보 조회 - JobInfoRequest()
+  - Preset Operation
+    - Preset 목록 조회 - PresetListRequest()
+    - Preset 정보 조회 - PresetInfoRequest()
 - Live Transcoder
 
-### VOD Transcoder Job create example
+### Using example
+
 ```go
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
@@ -65,7 +64,7 @@ func main() {
 		OutputFiles:            outputFiles,
 	}
 
-	createJobParam := &VODTranscoder.CreateJobParam{
+	createJobParam := &VODTranscoder.CreateJobRequestParam{
 		JobName:jobName,
 		Inputs: inputs,
 		Output:output,

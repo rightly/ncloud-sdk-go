@@ -12,10 +12,21 @@ go get github.com/rightly/ncloud-sdk-go
 
 ## Network
 
+* CDN
+  * CDN+
+    - Instance list 조회 - CdnPlusInstanceListRequest()
+    - Purge 기록 조회
+    - Purge 요청
+  * Global CDN
+    - Instance list 조회 - GlobalCdnInstanceListRequest()
+    - Purge 기록 조회 - GlobalCdnPurgeHistoryListRequest()
+    - Purge 요청
+
 ## AI & Application
 
 - Geolocation
-  - location 조회 - GeoLocationRequest() // 현재 Json response만 가능
+  - 위치정보조회 
+    - GeoLocationRequest() // Json response only
 
 ## Media
 
@@ -36,7 +47,7 @@ go get github.com/rightly/ncloud-sdk-go
 ```go
 import (
 	"github.com/rightly/ncloud-sdk-go/ncloud"
-	"github.com/rightly/ncloud-sdk-go/vodtranscoder"
+	"github.com/rightly/ncloud-sdk-go/service/media/vodtranscoder"
 	"github.com/rightly/ncloud-sdk-go/key"
 	"fmt"
 )

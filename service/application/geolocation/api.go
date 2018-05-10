@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	geolocation = SDKVersion + "geoLocation"
+	geolocation = sdkVersion + "geoLocation"
 )
 
 type GeoLocationRequest struct {
@@ -21,21 +21,18 @@ func (r *GeoLocationRequest) Send() (*GeolocationResponse, error) {
 	return r.Data.(*GeolocationResponse), nil
 }
 
-func (c *GeoLocation) GeoLocationRequest(p *GeolocationParam) GeoLocationRequest {
+func (c *GeoLocation) GeoLocationRequest(p *GeolocationRequestParam) GeoLocationRequest {
 	const opName = "GeoLocation"
 
 	path := geolocation +
 		"?ip=" + p.IP + "&enc=" + p.Enc + "&ext=" + p.Ext + "&responseFormatType=" + p.ResponseFormatType
-
-	/*path := geolocation +
-		"?ip=" + p.IP + "&enc=utf8&ext=t" + "&responseFormatType=" + p.ResponseFormatType*/
 
 	op := &ncloud.Operation{
 		Name:opName,
 		Credentials: "apigw",
 		Method:"GET",
 		Path:path,
-		Url:END_POINT + path,
+		Url:endpoint + path,
 	}
 
 	response := &GeolocationResponse{}

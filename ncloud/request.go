@@ -60,6 +60,7 @@ func New(operation *Operation, credentials *Credentials, response interface{}, c
 		Data:        response,
 		HTTPHandler: client,
 	}
+
 	return req
 }
 
@@ -78,13 +79,16 @@ func (r *Request) Send() (err error) {
 		return
 	}
 
+	//fmt.Println(string(r.Body))
 	size := len(r.Body)
 	if size > 0 {
-		err = Unmarshal(r.Body, r.Data)
+		//err = Unmarshal2(r)
+		err = Unmarshal(r)
 		if err != nil {
 			return
 		}
 	}
+	//fmt.Println(r.Data)
 
 	return nil
 }

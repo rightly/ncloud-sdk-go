@@ -3,10 +3,9 @@
 ### Product And API List
 
 - GeoLocation
-  - 위치정보 조회
-    - GeoLocationRequest() // 현재 Json response 형태만 지원
+  - 위치정보조회 - GeoLocationRequest()
 
-### GeoLocation location info lookup example
+### Using example
 
 ```go
 import (
@@ -38,7 +37,7 @@ func main() {
 	// 요청 및 응답
 	resp, err := req.Send()
     
-    param := &geolocation.GeolocationParam{
+    param := &geolocation.GeolocationRequestParam{
 		IP:"127.0.0.1",
 		Enc:"utf8",
 		Ext:"t",

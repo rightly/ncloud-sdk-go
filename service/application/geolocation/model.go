@@ -7,13 +7,22 @@ import (
 
 //JSON Response를 위한 struct
 type GeolocationResponse struct {
-	ReturnCode    int           `json:"returnCode" xml:"returnCode"`
-	RequestId     string        `json:"requestId" xml:"requestId"`
-	GeoLocation   Location      `json:"geolocation" xml:"geolocation"`
-	Error         ErrorResponse `json:"responseError" xml:"responseError"`
+	ReturnCode  int      `json:"returnCode" xml:"returnCode"`
+	RequestId   string   `json:"requestId" xml:"requestId"`
+	GeoLocation Location `json:"geolocation" xml:"geolocation"`
+	ResponseError        `json:"responseError" xml:"responseError"`
 }
 
-type ErrorResponse struct {
+func (r *GeolocationResponse) String() string {
+	unmarshal := "json"
+	indentedString, err := ncloud.String(r, unmarshal)
+	if err == nil {
+		return indentedString
+	}
+	return reflect.TypeOf(r).String() + ".String() is failed"
+}
+
+type ResponseError struct {
 	ReturnCode    string   `json:"returnCode" xml:"returnCode"`
 	ReturnMessage string   `json:"returnMessage" xml:"returnMessage"`
 }
@@ -29,18 +38,13 @@ type Location struct {
 	Net     string   `json:"net" xml:"net"`
 }
 
-type GeolocationParam struct {
+///
+/// Request struct
+///
+
+type GeolocationRequestParam struct {
 	IP                 string
 	Enc                string
 	Ext                string
 	ResponseFormatType string
-}
-
-func (r *GeolocationResponse) String() string {
-	unmarshal := "json"
-	indentedString, err := ncloud.String(r, unmarshal)
-	if err == nil {
-		return indentedString
-	}
-	return reflect.TypeOf(r).String() + ".String() is failed"
 }

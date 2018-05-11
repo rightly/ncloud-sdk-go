@@ -1,7 +1,7 @@
 package cdn
 
 import (
-	"../../../ncloud"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
 	"strconv"
 )
 

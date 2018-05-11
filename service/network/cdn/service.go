@@ -1,6 +1,6 @@
 package cdn
 
-import "../../../ncloud"
+import "github.com/rightly/ncloud-sdk-go/ncloud"
 
 type Cdn struct {
 	*ncloud.Client

@@ -1,4 +1,4 @@
-package ncloud
+package internal
 
 import (
 	"strconv"
@@ -9,7 +9,7 @@ import (
 	"encoding/base64"
 	"net/http"
 	"github.com/rightly/ncloud-sdk-go/oauth"
-	"github.com/rightly/ncloud-sdk-go/key"
+	"github.com/rightly/ncloud-sdk-go/internal/key"
 )
 
 // TODO: Documenting

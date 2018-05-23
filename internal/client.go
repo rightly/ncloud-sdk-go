@@ -1,9 +1,4 @@
-package ncloud
-
-import (
-	"log"
-	"os"
-)
+package internal
 
 // TODO: Documenting
 
@@ -29,7 +24,7 @@ func NewClient(cfg *Config) *Client {
 
 func (c *Client) NewRequest(operation *Operation, response interface{}, handler *HttpHandler) *Request {
 	method := operation.Method
-	path := operation.Path
+	path := operation.Version + operation.Path
 
 	switch operation.Credentials {
 	case "apigw":
@@ -37,8 +32,7 @@ func (c *Client) NewRequest(operation *Operation, response interface{}, handler 
 	case "oauth":
 		c.Credentials.setOauthClient(c.Handler.HttpClient)
 	default:
-		log.Printf("[%s.newRequest().NewRequest()] create credential fail, operation.Credential is not valid value", operation.Name)
-		os.Exit(1)
+		panic("Create Credentials fail")
 	}
 
 	return New(operation, c.Credentials, response, handler)

@@ -1,4 +1,4 @@
-package ncloud
+package internal
 
 import (
 	"net/http"
@@ -41,7 +41,7 @@ func NewHttpHandler(c *http.Client, l *Logger ,r *Retryer) *HttpHandler {
 	}
 }
 
-func (h *HttpHandler) Run(r *Request) (*http.Response, error) {
+func (h *HttpHandler) Do(r *Request) (*http.Response, error) {
 
 	c := addHandler(h.HttpClient,
 		WithLogger(h.Logger),

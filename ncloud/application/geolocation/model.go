@@ -5,12 +5,18 @@ import (
 	"reflect"
 )
 
+type Error struct {
+	ErrorCode string `json:"errorCode"`
+	Message   string `json:"message"`
+}
+
 //JSON Response를 위한 struct
 type GeolocationResponse struct {
 	ReturnCode  int      `json:"returnCode" xml:"returnCode"`
 	RequestId   string   `json:"requestId" xml:"requestId"`
 	GeoLocation Location `json:"geolocation" xml:"geolocation"`
 	ResponseError        `json:"responseError" xml:"responseError"`
+	Error				 `json:"error"`
 }
 
 func (r *GeolocationResponse) String() string {

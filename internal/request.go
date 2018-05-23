@@ -1,4 +1,4 @@
-package ncloud
+package internal
 
 import (
 	"time"
@@ -23,7 +23,7 @@ type Request struct {
 }
 
 type Operation struct {
-	Name        string
+	Version     string
 	Credentials string
 	Method      string
 	Path        string
@@ -65,8 +65,8 @@ func New(operation *Operation, credentials *Credentials, response interface{}, c
 }
 
 //Send is Request 정책에 대해 설정
-func (r *Request) Send() (err error) {
-	r.HTTPResponse, err = r.HTTPHandler.Run(r)
+func (r *Request) Do() (err error) {
+	r.HTTPResponse, err = r.HTTPHandler.Do(r)
 	if r.HTTPResponse != nil {
 		defer r.HTTPResponse.Body.Close()
 	}
@@ -79,16 +79,13 @@ func (r *Request) Send() (err error) {
 		return
 	}
 
-	//fmt.Println(string(r.Body))
 	size := len(r.Body)
 	if size > 0 {
-		//err = Unmarshal2(r)
 		err = Unmarshal(r)
 		if err != nil {
 			return
 		}
 	}
-	//fmt.Println(r.Data)
 
 	return nil
 }

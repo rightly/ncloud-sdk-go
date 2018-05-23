@@ -9,14 +9,14 @@
 
 ```go
 import (
-	"github.com/rightly/ncloud-sdk-go/ncloud"
-	"github.com/rightly/ncloud-sdk-go/service/application/geolocation"
-	"github.com/rightly/ncloud-sdk-go/key"
+	"github.com/rightly/ncloud-sdk-go/internal"	
+	"github.com/rightly/ncloud-sdk-go/internal/key"
+    "github.com/rightly/ncloud-sdk-go/ncloud/media/geolocation"
 	"fmt"
 )
 
 // Key file path
-// ~/key/setkey.json 의 양식을 참고해 json key file 을 생성
+// ~/internal/key/setkey.json 의 양식을 참고해 json key file 을 생성
 var configPath ="./key/key.json"
 
 func main() {

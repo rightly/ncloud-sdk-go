@@ -1,4 +1,4 @@
-package ncloud
+package internal
 
 import (
 	"net/http"

@@ -1,13 +1,13 @@
 package vodtranscoder
 
 import (
-	"github.com/rightly/ncloud-sdk-go/ncloud"
+	"github.com/rightly/ncloud-sdk-go/internal"
 )
 
 // Actions
 const (
-	jobAction =  sdkVersion + "jobs"
-	presetAction = sdkVersion + "presets"
+	jobAction =  "jobs"
+	presetAction = "presets"
 )
 
 /*
@@ -20,12 +20,12 @@ const (
 
 // CreateJobRequest is Job create request API Operation
 type CreateJobRequest struct {
-	*ncloud.Request
+	*internal.Request
 }
 
 // Send marshals and sends the Job create API request.
-func (r *CreateJobRequest) Send() (*CreateJobResponse, error) {
-	err := r.Request.Send()
+func (r *CreateJobRequest) Do() (*CreateJobResponse, error) {
+	err := r.Request.Do()
 	if err != nil {
 		return nil, err
 	}
@@ -80,33 +80,32 @@ func (r *CreateJobRequest) Send() (*CreateJobResponse, error) {
 //	}
 //
 func (c *VodTranscoder) CreateJobRequest(p *CreateJobRequestParam) CreateJobRequest {
+	path := jobAction
 
-	const opName = "CreateJobRequest"
-
-	op := &ncloud.Operation{
-		Name:opName,
+	op := &internal.Operation{
+		Version:     sdkVersion,
 		Credentials: "apigw",
-		Method:"POST",
-		Path:jobAction,
-		Url:endpoint + jobAction,
-		Param:p,
+		Method:      "POST",
+		Path:        path,
+		Url:         endpoint + path,
+		Param:       p,
 	}
 
 	response := &CreateJobResponse{}
 	handler := c.Handler
-	req := c.newRequest(op, response, handler)
+	req := c.NewRequest(op, response, handler)
 
 	return CreateJobRequest{Request: req}
 }
 
 //JobCreateCancelRequest is Job create cancel request API Operation
 type JobCreateCancelRequest struct {
-	*ncloud.Request
+	*internal.Request
 }
 
 // Send marshals and sends the Job create cancel API request.
-func (r JobCreateCancelRequest) Send() (*JobCreateCancelResponse, error) {
-	err := r.Request.Send()
+func (r JobCreateCancelRequest) Do() (*JobCreateCancelResponse, error) {
+	err := r.Request.Do()
 	if err != nil {
 		return nil, err
 	}
@@ -132,32 +131,31 @@ func (r JobCreateCancelRequest) Send() (*JobCreateCancelResponse, error) {
 //	}
 //
 func (c *VodTranscoder) JobCreateCancelRequest(jobId string) JobCreateCancelRequest {
-	const opName = "JobCreateCancelRequest"
-	jobCancelAction := jobAction + "/" + jobId + "/cancel"
+	path := jobAction + "/" + jobId + "/cancel"
 
-	op := &ncloud.Operation{
-		Name:opName,
+	op := &internal.Operation{
+		Version:     sdkVersion,
 		Credentials: "apigw",
-		Method:"POST",
-		Path:jobCancelAction,
-		Url:endpoint + jobCancelAction,
+		Method:      "POST",
+		Path:        path,
+		Url:         endpoint + path,
 	}
 
 	response := &JobCreateCancelResponse{}
 	handler := c.Handler
-	req := c.newRequest(op, response, handler)
+	req := c.NewRequest(op, response, handler)
 
 	return JobCreateCancelRequest{Request: req}
 }
 
 // JobListRequest is View information of job list Request API Operation
 type JobListRequest struct {
-	*ncloud.Request
+	*internal.Request
 }
 
 // Send marshals and sends the View information of job list API request.
-func (r JobListRequest) Send() (*JobListResponse, error) {
-	err := r.Request.Send()
+func (r JobListRequest) Do() (*JobListResponse, error) {
+	err := r.Request.Do()
 	if err != nil {
 		return nil, err
 	}
@@ -181,20 +179,19 @@ func (r JobListRequest) Send() (*JobListResponse, error) {
 //	}
 //
 func (c *VodTranscoder) JobListRequest() JobListRequest {
+	path := jobAction
 
-	const opName = "JobListRequest"
-
-	op := &ncloud.Operation{
-		Name:opName,
+	op := &internal.Operation{
+		Version:     sdkVersion,
 		Credentials: "apigw",
-		Method:"GET",
-		Path:jobAction,
-		Url:endpoint + jobAction,
+		Method:      "GET",
+		Path:        path,
+		Url:         endpoint + path,
 	}
 
 	response := &JobListResponse{}
 	handler := c.Handler
-	req := c.newRequest(op, response, handler)
+	req := c.NewRequest(op, response, handler)
 
 	return JobListRequest{Request: req}
 }
@@ -202,12 +199,12 @@ func (c *VodTranscoder) JobListRequest() JobListRequest {
 
 // JobInfoRequest is View information of specific job request API Operation
 type JobInfoRequest struct {
-	*ncloud.Request
+	*internal.Request
 }
 
 // Send marshals and sends the View information of specific job API request.
-func (r *JobInfoRequest)Send() (*JobInfoResponse, error) {
-	err := r.Request.Send()
+func (r *JobInfoRequest) Do() (*JobInfoResponse, error) {
+	err := r.Request.Do()
 	if err != nil {
 		return nil, err
 	}
@@ -233,21 +230,19 @@ func (r *JobInfoRequest)Send() (*JobInfoResponse, error) {
 //	}
 //
 func (c *VodTranscoder) JobInfoRequest(jobId string) JobInfoRequest {
+	path := jobAction + "/" + jobId
 
-	const opName = "JobInfoRequest"
-	url := jobAction + "/" + jobId
-
-	op := &ncloud.Operation{
-		Name:   opName,
+	op := &internal.Operation{
+		Version:     sdkVersion,
 		Credentials: "apigw",
-		Method: "GET",
-		Path:   url,
-		Url:    endpoint + url,
+		Method:      "GET",
+		Path:        path,
+		Url:         endpoint + path,
 	}
 
 	response := &JobInfoResponse{}
 	handler := c.Handler
-	req := c.newRequest(op, response, handler)
+	req := c.NewRequest(op, response, handler)
 
 	return JobInfoRequest{Request: req}
 }
@@ -260,12 +255,12 @@ func (c *VodTranscoder) JobInfoRequest(jobId string) JobInfoRequest {
 
 // PresetListRequest is View information of preset list request API Operation
 type PresetListRequest struct {
-	*ncloud.Request
+	*internal.Request
 }
 
 // Send marshals and sends the View information of preset list API request.
-func (r *PresetListRequest) Send() (*PresetListResponse, error) {
-	err := r.Request.Send()
+func (r *PresetListRequest) Do() (*PresetListResponse, error) {
+	err := r.Request.Do()
 	if err != nil {
 		return nil, err
 	}
@@ -291,31 +286,31 @@ func (r *PresetListRequest) Send() (*PresetListResponse, error) {
 //	}
 //
 func (c *VodTranscoder) PresetListRequest() PresetListRequest {
-	const opName= "PresetListRequest"
+	path := presetAction
 
-	op := &ncloud.Operation{
-		Name:   opName,
+	op := &internal.Operation{
+		Version:     sdkVersion,
 		Credentials: "apigw",
-		Method: "GET",
-		Path:   presetAction,
-		Url:    endpoint + presetAction,
+		Method:      "GET",
+		Path:        path,
+		Url:         endpoint + path,
 	}
 
 	response := &PresetListResponse{}
 	handler := c.Handler
-	req := c.newRequest(op, response, handler)
+	req := c.NewRequest(op, response, handler)
 
 	return PresetListRequest{Request: req}
 }
 
 // PresetInfoRequest is View information of specific preset request API Operation
 type PresetInfoRequest struct {
-	*ncloud.Request
+	*internal.Request
 }
 
 // Send marshals and sends the View information of specific preset API request.
-func (r *PresetInfoRequest) Send() (*PresetInfoResponse, error) {
-	err := r.Request.Send()
+func (r *PresetInfoRequest) Do() (*PresetInfoResponse, error) {
+	err := r.Request.Do()
 	if err != nil {
 		return nil, err
 	}
@@ -341,20 +336,19 @@ func (r *PresetInfoRequest) Send() (*PresetInfoResponse, error) {
 //	}
 //
 func (c *VodTranscoder) PresetInfoRequest(presetId string) PresetInfoRequest {
-	const opName= "PresetInfoRequest"
-	url := presetAction + "/" + presetId
+	path := presetAction + "/" + presetId
 
-	op := &ncloud.Operation{
-		Name:   opName,
+	op := &internal.Operation{
+		Version:     sdkVersion,
 		Credentials: "apigw",
-		Method: "GET",
-		Path:   url,
-		Url:    endpoint + url,
+		Method:      "GET",
+		Path:        path,
+		Url:         endpoint + path,
 	}
 
 	response := &PresetInfoResponse{}
 	handler := c.Handler
-	req := c.newRequest(op, response, handler)
+	req := c.NewRequest(op, response, handler)
 
 	return PresetInfoRequest{Request: req}
 }

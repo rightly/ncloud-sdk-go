@@ -1,13 +1,20 @@
 package cdn
 
 import (
-	"github.com/rightly/ncloud-sdk-go/ncloud"
+	"github.com/rightly/ncloud-sdk-go/internal"
 	"reflect"
 )
 
+// TODO: [issue]Java date to convert Go time
+
 type ResponseError struct {
-	ReturnCode    string   `json:"returnCode" xml:"returnCode"`
-	ReturnMessage string   `json:"returnMessage" xml:"returnMessage"`
+	ReturnCode    string `json:"returnCode" xml:"returnCode"`
+	ReturnMessage string `json:"returnMessage" xml:"returnMessage"`
+}
+
+type ApiGatewayError struct {
+	ErrorCode string `json:"errorCode"`
+	Message   string `json:"message"`
 }
 
 ////
@@ -16,12 +23,13 @@ type ResponseError struct {
 
 type CdnPlusInstanceListResponse struct {
 	CdnPlusInstanceList `json:"getCdnPlusInstanceListResponse" xml:"getCdnPlusInstanceListResponse"`
-	ResponseError	`json:"responseError" xml:"responseError"`
+	ResponseError       `json:"responseError" xml:"responseError"`
+	ApiGatewayError     `json:"error"`
 }
 
 func (r *CdnPlusInstanceListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := ncloud.String(r, unmarshal)
+	indentedString, err := internal.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -97,23 +105,37 @@ type CdnPlusRule struct {
 }
 
 type CdnPlusPurgeHistoryListResponse struct {
+	CdnPlusPurgeHistory
+	ResponseError   `json:"responseError" xml:"responseError"`
+	ApiGatewayError `json:"error"`
+}
+
+func (r *CdnPlusPurgeHistoryListResponse) String() string {
+	unmarshal := "json"
+	indentedString, err := internal.String(r, unmarshal)
+	if err == nil {
+		return indentedString
+	}
+
+	return reflect.TypeOf(r).String() + ".String() is failed"
+}
+
+type CdnPlusPurgeHistory struct {
 	RequestId               string                `json:"requestId" xml:"requestId"`
 	ReturnCode              string                `json:"returnCode" xml:"returnCode"`
 	ReturnMessage           string                `json:"returnMessage" xml:"returnMessage"`
 	TotalRows               uint                  `json:"totalRows" xml:"totalRows"`
-	CdnPlusPurgeHistoryList []CdnPlusPurgeHistory `json:"cdnPlusPurgeHistoryList" xml:"cdnPlusPurgeHistoryList"`
-}
-
-type CdnPlusPurgeHistory struct {
-	CdnInstanceNo            string                 `json:"cdnInstanceNo" xml:"cdnInstanceNo"`
-	PurgeId                  string                 `json:"purgeId" xml:"purgeId"`
-	IsWholePurge             bool                   `json:"isWholePurge" xml:"isWholePurge"`
-	IsWholeDomain            bool                   `json:"isWholeDomain" xml:"isWholeDomain"`
-	CdnPlusServiceDomainList []CdnPlusServiceDomain `json:"cdnPlusServiceDomainList" xml:"cdnPlusServiceDomainList"`
-	TargetDirectoryName      string                 `json:"targetDirectoryName" xml:"targetDirectoryName"`
-	TargetFileList           []string               `json:"targetFileList" xml:"targetFileList"`
-	RequestDate              string                 `json:"requestDate" xml:"requestDate"`
-	PurgeStatusName          string                 `json:"purgeStatusName" xml:"purgeStatusName"`
+	CdnPlusPurgeHistoryList []struct {
+		CdnInstanceNo            string                 `json:"cdnInstanceNo" xml:"cdnInstanceNo"`
+		PurgeId                  string                 `json:"purgeId" xml:"purgeId"`
+		IsWholePurge             bool                   `json:"isWholePurge" xml:"isWholePurge"`
+		IsWholeDomain            bool                   `json:"isWholeDomain" xml:"isWholeDomain"`
+		CdnPlusServiceDomainList []CdnPlusServiceDomain `json:"cdnPlusServiceDomainList" xml:"cdnPlusServiceDomainList"`
+		TargetDirectoryName      string                 `json:"targetDirectoryName" xml:"targetDirectoryName"`
+		TargetFileList           []string               `json:"targetFileList" xml:"targetFileList"`
+		RequestDate              string                 `json:"requestDate" xml:"requestDate"`
+		PurgeStatusName          string                 `json:"purgeStatusName" xml:"purgeStatusName"`
+	}`json:"cdnPlusPurgeHistoryList" xml:"cdnPlusPurgeHistoryList"`
 }
 
 ////
@@ -122,12 +144,13 @@ type CdnPlusPurgeHistory struct {
 
 type GlobalCdnInstanceListResponse struct {
 	GlobalCdnInstanceList `json:"getGlobalCdnInstanceListResponse" xml:"getGlobalCdnInstanceListResponse"`
-	ResponseError	`json:"responseError" xml:"responseError"`
+	ResponseError         `json:"responseError" xml:"responseError"`
+	ApiGatewayError       `json:"error"`
 }
 
 func (r *GlobalCdnInstanceListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := ncloud.String(r, unmarshal)
+	indentedString, err := internal.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -190,17 +213,14 @@ type GlobalCdnRule struct {
 }
 
 type GlobalCdnPurgeHistoryListResponse struct {
-	RequestId                 string                  `json:"requestId" xml:"requestId"`
-	ReturnCode                string                  `json:"returnCode" xml:"returnCode"`
-	ReturnMessage             string                  `json:"returnMessage" xml:"returnMessage"`
-	TotalRows                 uint                    `json:"totalRows" xml:"totalRows"`
-	GlobalCdnPurgeHistoryList []GlobalCdnPurgeHistory `json:"cdnPlusPurgeHistoryList" xml:"cdnPlusPurgeHistoryList"`
-	ResponseError                                     `json:"responseError" xml:"responseError"`
+	GlobalCdnPurgeHistory //`json:"getGlobalCdnPurgeHistoryList" xml:"getGlobalCdnPurgeHistoryList"`
+	ResponseError   `json:"responseError" xml:"responseError"`
+	ApiGatewayError `json:"error"`
 }
 
 func (r *GlobalCdnPurgeHistoryListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := ncloud.String(r, unmarshal)
+	indentedString, err := internal.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -208,15 +228,21 @@ func (r *GlobalCdnPurgeHistoryListResponse) String() string {
 }
 
 type GlobalCdnPurgeHistory struct {
-	CdnInstanceNo              string                   `json:"cdnInstanceNo" xml:"cdnInstanceNo"`
-	PurgeId                    string                   `json:"purgeId" xml:"purgeId"`
-	IsWholePurge               bool                     `json:"isWholePurge" xml:"isWholePurge"`
-	IsWholeDomain              bool                     `json:"isWholeDomain" xml:"isWholeDomain"`
-	GlobalCdnServiceDomainList []GlobalCdnServiceDomain `json:"cdnPlusServiceDomainList" xml:"cdnPlusServiceDomainList"`
-	TargetDirectoryName        string                   `json:"targetDirectoryName" xml:"targetDirectoryName"`
-	TargetFileList             []string                 `json:"targetFileList" xml:"targetFileList"`
-	RequestDate                string                   `json:"requestDate" xml:"requestDate"`
-	PurgeStatusName            string                   `json:"purgeStatusName" xml:"purgeStatusName"`
+	RequestId                 string                  `json:"requestId" xml:"requestId"`
+	ReturnCode                string                  `json:"returnCode" xml:"returnCode"`
+	ReturnMessage             string                  `json:"returnMessage" xml:"returnMessage"`
+	TotalRows                 uint                    `json:"totalRows" xml:"totalRows"`
+	GlobalCdnPurgeHistoryList []struct {
+		CdnInstanceNo              string                   `json:"cdnInstanceNo" xml:"cdnInstanceNo"`
+		PurgeId                    string                   `json:"purgeId" xml:"purgeId"`
+		IsWholePurge               bool                     `json:"isWholePurge" xml:"isWholePurge"`
+		IsWholeDomain              bool                     `json:"isWholeDomain" xml:"isWholeDomain"`
+		GlobalCdnServiceDomainList []GlobalCdnServiceDomain `json:"cdnPlusServiceDomainList" xml:"cdnPlusServiceDomainList"`
+		TargetDirectoryName        string                   `json:"targetDirectoryName" xml:"targetDirectoryName"`
+		TargetFileList             []string                 `json:"targetFileList" xml:"targetFileList"`
+		RequestDate                string                   `json:"requestDate" xml:"requestDate"`
+		PurgeStatusName            string                   `json:"purgeStatusName" xml:"purgeStatusName"`
+	}
 }
 
 ///

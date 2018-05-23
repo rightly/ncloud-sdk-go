@@ -1,10 +1,9 @@
-package ncloud
+package internal
 
 import (
 	"strings"
 	"encoding/xml"
 	"encoding/json"
-	"reflect"
 	"errors"
 )
 
@@ -65,5 +64,5 @@ func String(v interface{}, s string) (string, error) {
 		e = err
 	}
 
-	return reflect.TypeOf(v).String() + " Marshal fail", e
+	return "", e
 }

@@ -40,7 +40,7 @@ func (s *HMACSigner) Sign(tokenSecret, message string) (string, error) {
 }
 
 // RSASigner RSA PKCS1-v1_5 signs SHA1 digests of messages using the given
-// RSA private key.
+// RSA ncloud key.
 type RSASigner struct {
 	PrivateKey *rsa.PrivateKey
 }

@@ -5,7 +5,7 @@ For using NAVER CLOUD PLATFORM openAPI in Go
 
 go get 을 사용해 추가합니다
 ```sh
-go get github.com/rightly/ncloud-sdk-go
+go get -u github.com/rightly/ncloud-sdk-go
 ```
 
 ## Compute
@@ -46,9 +46,8 @@ go get github.com/rightly/ncloud-sdk-go
 ### Using example
 ```go
 import (
-	"github.com/rightly/ncloud-sdk-go/internal"	
-	"github.com/rightly/ncloud-sdk-go/internal/key"
-    "github.com/rightly/ncloud-sdk-go/ncloud/media/vodtranscoder"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
+	"github.com/rightly/ncloud-sdk-go/services/vodtranscoder"
 	"fmt"
 )
 
@@ -58,7 +57,7 @@ var configPath ="./key/key.json"
 
 func main() {
 	// Key Load
-	keyConf := key.Load(configPath)
+	keyConf := ncloud.KeyLoad(configPath)
 
 	// Set Credentials, 발급받은 key 값 설정
 	// cred := ncloud.MakeCredential(keyConf.Key.ApiKey,keyConf.Key.AccessKey,keyConf.Key.SecretKey)

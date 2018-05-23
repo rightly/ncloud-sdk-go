@@ -1,4 +1,4 @@
-package internal
+package ncloud
 
 import (
 	"strconv"
@@ -8,7 +8,7 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"net/http"
-	"github.com/rightly/ncloud-sdk-go/oauth"
+	"github.com/rightly/ncloud-sdk-go/internal/oauth"
 	"github.com/rightly/ncloud-sdk-go/internal/key"
 )
 
@@ -71,4 +71,8 @@ func (c *Credentials) makeSignature(apiUrl string) string {
 	h.Write([]byte(message))
 
 	return base64.StdEncoding.EncodeToString(h.Sum(nil))
+}
+
+func KeyLoad(path string) key.KeyConfig {
+	return key.Load(path)
 }

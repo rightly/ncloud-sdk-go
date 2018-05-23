@@ -1,7 +1,7 @@
 package cdn
 
 import (
-	"github.com/rightly/ncloud-sdk-go/internal"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
 	"reflect"
 )
 
@@ -29,7 +29,7 @@ type CdnPlusInstanceListResponse struct {
 
 func (r *CdnPlusInstanceListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -112,7 +112,7 @@ type CdnPlusPurgeHistoryListResponse struct {
 
 func (r *CdnPlusPurgeHistoryListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -150,7 +150,7 @@ type GlobalCdnInstanceListResponse struct {
 
 func (r *GlobalCdnInstanceListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -220,7 +220,7 @@ type GlobalCdnPurgeHistoryListResponse struct {
 
 func (r *GlobalCdnPurgeHistoryListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}

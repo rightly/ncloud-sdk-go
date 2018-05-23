@@ -1,18 +1,18 @@
 package cdn
 
-import 	"github.com/rightly/ncloud-sdk-go/internal"
+import 	"github.com/rightly/ncloud-sdk-go/ncloud"
 
 type Cdn struct {
-	*internal.Client
+	*ncloud.Client
 }
 
 // CDN OpenAPI Endpoint
 const endpoint = "https://ncloud.apigw.ntruss.com" + sdkVersion
 
-func New(cfg *internal.Config) *Cdn {
+func New(cfg *ncloud.Config) *Cdn {
 
 	svc := &Cdn{
-		Client: internal.NewClient(cfg),
+		Client: ncloud.NewClient(cfg),
 	}
 
 	return svc

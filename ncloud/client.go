@@ -1,4 +1,4 @@
-package internal
+package ncloud
 
 // TODO: Documenting
 
@@ -10,7 +10,6 @@ type Client struct {
 }
 
 func NewClient(cfg *Config) *Client {
-	//method := operation.HTTPMethod
 
 	handler := NewHttpHandler(cfg.Client, cfg.Logger, cfg.Retryer)
 

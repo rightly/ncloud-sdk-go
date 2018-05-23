@@ -1,4 +1,4 @@
-package internal
+package ncloud
 
 import (
 	"strings"
@@ -8,16 +8,6 @@ import (
 )
 
 // TODO: Documenting
-
-func Unmarshal2(data []byte, v interface{}) (err error) {
-
-	if strings.HasPrefix(string(data), "<") {
-		err = xml.Unmarshal(data, v)
-	} else {
-		err = json.Unmarshal(data, v)
-	}
-	return
-}
 
 func Unmarshal(r *Request) error {
 	cType := r.HTTPResponse.Header.Get("Content-Type")

@@ -1,7 +1,7 @@
 package geolocation
 
 import (
-	"github.com/rightly/ncloud-sdk-go/internal"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
 )
 
 const (
@@ -9,7 +9,7 @@ const (
 )
 
 type GeoLocationRequest struct {
-	*internal.Request
+	*ncloud.Request
 }
 
 func (r *GeoLocationRequest) Do() (*GeolocationResponse, error) {
@@ -25,7 +25,7 @@ func (c *GeoLocation) GeoLocationRequest(p *GeolocationRequestParam) GeoLocation
 	path := geolocation +
 		"?ip=" + p.IP + "&enc=" + p.Enc + "&ext=" + p.Ext + "&responseFormatType=" + p.ResponseFormatType
 
-	op := &internal.Operation{
+	op := &ncloud.Operation{
 		Version:     sdkVersion,
 		Credentials: "apigw",
 		Method:      "GET",

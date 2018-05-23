@@ -17,9 +17,8 @@
 
 ```go
 import (
-	"github.com/rightly/ncloud-sdk-go/internal"	
-	"github.com/rightly/ncloud-sdk-go/internal/key"
-    "github.com/rightly/ncloud-sdk-go/ncloud/media/vodtranscoder"
+	"github.com/rightly/ncloud-sdk-go/ncloud"	
+    "github.com/rightly/ncloud-sdk-go/services/media/vodtranscoder"
 	"fmt"
 )
 
@@ -29,7 +28,7 @@ var configPath ="./key/key.json"
 
 func main() {
 	// Key Load
-	keyConf := key.Load(configPath)
+	keyConf := ncloud.KeyLoad(configPath)
 
 	// Set Credentials, 발급받은 key 값 설정
 	// cred := ncloud.MakeCredential(keyConf.Key.ApiKey,keyConf.Key.AccessKey,keyConf.Key.SecretKey)

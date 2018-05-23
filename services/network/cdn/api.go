@@ -1,7 +1,7 @@
 package cdn
 
 import (
-	"github.com/rightly/ncloud-sdk-go/internal"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
 	"strconv"
 )
 
@@ -13,7 +13,7 @@ const (
 )
 
 type CdnPlusInstanceListRequest struct {
-	*internal.Request
+	*ncloud.Request
 }
 
 func (r *CdnPlusInstanceListRequest) Do() (*CdnPlusInstanceListResponse, error) {
@@ -33,7 +33,7 @@ func (c *Cdn) CdnPlusInstanceListRequest(p *InstanceListRequestParam) CdnPlusIns
 	path := cdnPlusInstanceList +
 		"?cdnInstanceNo=" + p.CdnInstanceNo + "&pageNo=" + strconv.Itoa(p.PageNo) + "&pageSize=" + strconv.Itoa(p.PageSize) + "&responseFormatType=" + p.ResponseFormatType
 
-	op := &internal.Operation{
+	op := &ncloud.Operation{
 		Version:     sdkVersion,
 		Credentials: "apigw",
 		Method:      "GET",
@@ -49,7 +49,7 @@ func (c *Cdn) CdnPlusInstanceListRequest(p *InstanceListRequestParam) CdnPlusIns
 }
 
 type CdnPlusPurgeHistoryListRequest struct {
-	*internal.Request
+	*ncloud.Request
 }
 
 func (r *CdnPlusPurgeHistoryListRequest) Do() (*CdnPlusPurgeHistoryListResponse, error) {
@@ -69,7 +69,7 @@ func (c *Cdn) CdnPlusPurgeHistoryListRequest(p *PurgeHistoryListRequestParam) Cd
 	path := cdnPlusPurgeHistoryList +
 		"?cdnInstanceNo=" + p.CdnInstanceNo + "&pageSize=" + p.PurgeListN + "&responseFormatType=" + p.ResponseFormatType
 
-	op := &internal.Operation{
+	op := &ncloud.Operation{
 		Version:     sdkVersion,
 		Credentials: "apigw",
 		Method:      "GET",
@@ -85,7 +85,7 @@ func (c *Cdn) CdnPlusPurgeHistoryListRequest(p *PurgeHistoryListRequestParam) Cd
 }
 
 type GlobalCdnInstanceListRequest struct {
-	*internal.Request
+	*ncloud.Request
 }
 
 func (r *GlobalCdnInstanceListRequest) Do() (*GlobalCdnInstanceListResponse, error) {
@@ -105,7 +105,7 @@ func (c *Cdn) GlobalCdnInstanceListRequest(p *InstanceListRequestParam) GlobalCd
 	path := gcdnInstanceList +
 		"?cdnInstanceNo=" + p.CdnInstanceNo + "&pageNo=" + strconv.Itoa(p.PageNo) + "&pageSize=" + strconv.Itoa(p.PageSize) + "&responseFormatType=" + p.ResponseFormatType
 
-	op := &internal.Operation{
+	op := &ncloud.Operation{
 		Version:     sdkVersion,
 		Credentials: "apigw",
 		Method:      "GET",
@@ -121,7 +121,7 @@ func (c *Cdn) GlobalCdnInstanceListRequest(p *InstanceListRequestParam) GlobalCd
 }
 
 type GlobalCdnPurgeHistoryListRequest struct {
-	*internal.Request
+	*ncloud.Request
 }
 
 func (r *GlobalCdnPurgeHistoryListRequest) Do() (*GlobalCdnPurgeHistoryListResponse, error) {
@@ -141,7 +141,7 @@ func (c *Cdn) GlobalCdnPurgeHistoryListRequest(p *PurgeHistoryListRequestParam) 
 	path := gcdnPurgeHistoryList +
 		"?cdnInstanceNo=" + p.CdnInstanceNo + "&pageSize=" + p.PurgeListN + "&responseFormatType=" + p.ResponseFormatType
 
-	op := &internal.Operation{
+	op := &ncloud.Operation{
 		Version:     sdkVersion,
 		Credentials: "apigw",
 		Method:      "GET",

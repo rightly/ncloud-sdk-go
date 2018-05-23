@@ -1,7 +1,7 @@
 package vodtranscoder
 
 import (
-	"github.com/rightly/ncloud-sdk-go/internal"
+	"github.com/rightly/ncloud-sdk-go/ncloud"
 	"reflect"
 )
 
@@ -14,7 +14,7 @@ type CreateJobResponse struct {
 
 func (r *CreateJobResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -92,7 +92,7 @@ type JobCreateCancelResponse struct {
 
 func (r *JobCreateCancelResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -107,7 +107,7 @@ type JobListResponse struct {
 
 func (r *JobListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -123,7 +123,7 @@ type JobInfoResponse struct {
 
 func (r *JobInfoResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -140,7 +140,7 @@ type PresetListResponse struct {
 
 func (r *PresetListResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}
@@ -181,7 +181,7 @@ type PresetInfoResponse struct {
 
 func (r *PresetInfoResponse) String() string {
 	unmarshal := "json"
-	indentedString, err := internal.String(r, unmarshal)
+	indentedString, err := ncloud.String(r, unmarshal)
 	if err == nil {
 		return indentedString
 	}

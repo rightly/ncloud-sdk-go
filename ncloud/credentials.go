@@ -62,7 +62,7 @@ func (c *Credentials) makeSignature(apiUrl string) string {
 	message = fmt.Sprint(message, c.Method + " ") // Request Method
 	message = fmt.Sprint(message, apiUrl + "\n" ) // Uri
 	message = fmt.Sprint(message, c.Timestamp + "\n") // Time Stamp
-	message = fmt.Sprint(message, c.ApiKey + "\n") // Api Key
+	//message = fmt.Sprint(message, c.ApiKey + "\n") // Api Key
 	message = fmt.Sprint(message, c.AccessKey)
 
 	key := []byte(c.SecretKey)	// Secret Key
